@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm, usePage } from '@inertiajs/react';
 import DashboardLayout from '../../Layouts/DashboardLayout';
+import ProfilePictureManager from '../../Components/ProfilePictureManager';
 
 const ProfileEditor = () => {
     const { auth, flash } = usePage().props;
@@ -23,6 +24,8 @@ const ProfileEditor = () => {
     return (
         <div>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '2rem' }}>Edit Profile Details</h2>
+
+            <ProfilePictureManager initialData={portfolio.profile_picture} />
 
             {flash.message && (
                 <div style={{ marginBottom: '1.5rem', padding: '1rem', background: 'rgba(74, 222, 128, 0.1)', color: '#4ade80', borderRadius: '10px', border: '1px solid rgba(74, 222, 128, 0.2)' }}>

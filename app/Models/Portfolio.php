@@ -29,6 +29,18 @@ class Portfolio extends Model
     }
 
     /**
+     * Get the full URL for the profile picture
+     */
+    public function getProfilePictureUrlAttribute()
+    {
+        if ($this->profile_picture_path) {
+            return asset('storage/' . $this->profile_picture_path);
+        }
+
+        return null;
+    }
+
+    /**
      * Get the resume file name
      */
     public function getResumeFileNameAttribute()

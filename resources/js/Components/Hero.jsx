@@ -3,6 +3,34 @@ import React from 'react';
 const Hero = ({ data }) => {
   return (
     <section id="hero" style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', textAlign: 'center', padding: '0 1rem' }}>
+      {data.profile_picture?.show_on_portfolio && data.profile_picture?.url && (
+        <div style={{
+          width: '150px',
+          height: '150px',
+          borderRadius: '50%',
+          overflow: 'hidden',
+          marginBottom: '2rem',
+          border: '4px solid rgba(255, 255, 255, 0.1)',
+          boxShadow: '0 0 30px rgba(0,0,0,0.3)',
+          background: 'rgba(255, 255, 255, 0.05)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <img
+            src={data.profile_picture.url}
+            alt={data.full_name}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              transition: 'transform 0.5s ease'
+            }}
+            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          />
+        </div>
+      )}
       <h1 style={{ fontSize: '4rem', marginBottom: '1rem' }}>
         Hi, I'm <span className="text-gradient">{data.full_name}</span>
       </h1>

@@ -143,6 +143,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/api/resume/toggle-visibility', [\App\Http\Controllers\Api\ResumeController::class, 'toggleVisibility'])->name('api.resume.toggle-visibility');
     Route::get('/api/resume/download', [\App\Http\Controllers\Api\ResumeController::class, 'download'])->name('api.resume.download');
     Route::delete('/api/resume', [\App\Http\Controllers\Api\ResumeController::class, 'destroy'])->name('api.resume.destroy');
+
+    // Profile Picture Management
+    Route::post('/api/profile-picture', [\App\Http\Controllers\Api\ProfilePictureController::class, 'store'])->name('api.profile-picture.store');
+    Route::post('/api/profile-picture/toggle-visibility', [\App\Http\Controllers\Api\ProfilePictureController::class, 'toggleVisibility'])->name('api.profile-picture.toggle-visibility');
+    Route::delete('/api/profile-picture', [\App\Http\Controllers\Api\ProfilePictureController::class, 'destroy'])->name('api.profile-picture.destroy');
 });
 
 

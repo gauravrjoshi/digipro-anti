@@ -38,6 +38,10 @@ class PortfolioResource extends JsonResource
             'skills' => $this->skills->groupBy('category'),
             'experiences' => $this->experiences,
             'education' => $this->education,
+            'profile_picture' => [
+                'url' => $this->profile_picture_url,
+                'show_on_portfolio' => (bool) $this->show_profile_picture,
+            ],
             'resume' => [
                 'has_resume' => (bool) $this->resume_type,
                 'show_on_portfolio' => (bool) $this->show_resume_on_portfolio,
