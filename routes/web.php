@@ -29,7 +29,7 @@ Route::get('/', function (Request $request) {
             ]);
         }
     }
-    
+
     return Inertia::render('LandingPage');
 })->name('home');
 
@@ -45,6 +45,23 @@ Route::get('/register', function () {
 Route::get('/pricing', function () {
     return Inertia::render('Pricing');
 })->name('pricing');
+
+// Legal & Support Routes
+Route::get('/support', function () {
+    return Inertia::render('Support');
+})->name('support');
+
+Route::get('/terms-of-service', function () {
+    return Inertia::render('TermsOfService');
+})->name('terms');
+
+Route::get('/privacy-policy', function () {
+    return Inertia::render('PrivacyPolicy');
+})->name('privacy');
+
+Route::get('/cancellation', function () {
+    return Inertia::render('CancellationPolicy');
+})->name('cancellation');
 
 // Dashboard (Protected)
 Route::middleware(['auth'])->group(function () {

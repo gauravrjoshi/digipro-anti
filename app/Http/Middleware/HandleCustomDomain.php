@@ -19,7 +19,8 @@ class HandleCustomDomain
             'digipro-anti.test',
             'localhost',
             '127.0.0.1',
-            'digipro-staging.statelyworld.com'
+            'digipro-staging.statelyworld.com',
+            'digipro.statelyworld.com',
         ];
 
         if (in_array($host, $mainDomains)) {

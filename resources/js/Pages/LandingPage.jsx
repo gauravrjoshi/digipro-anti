@@ -307,20 +307,21 @@ const LandingPage = () => {
                     <div>
                         <h4 style={{ marginBottom: '1rem', fontWeight: '600' }}>Company</h4>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                            <a href="#" style={{ color: '#94a3b8', textDecoration: 'none' }}>About</a>
-                            <a href="#" style={{ color: '#94a3b8', textDecoration: 'none' }}>Contact</a>
+                            <a href='https://statelyworld.com/about-us/' target="_blank" style={{ color: '#94a3b8', textDecoration: 'none' }}>About</a>
+                            <a href={route('support')} style={{ color: '#94a3b8', textDecoration: 'none' }}>Support</a>
                         </div>
                     </div>
                     <div>
                         <h4 style={{ marginBottom: '1rem', fontWeight: '600' }}>Legal</h4>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                            <a href="#" style={{ color: '#94a3b8', textDecoration: 'none' }}>Privacy Policy</a>
-                            <a href="#" style={{ color: '#94a3b8', textDecoration: 'none' }}>Terms of Service</a>
+                            <a href={route('privacy')} style={{ color: '#94a3b8', textDecoration: 'none' }}>Privacy Policy</a>
+                            <a href={route('terms')} style={{ color: '#94a3b8', textDecoration: 'none' }}>Terms of Service</a>
+                            <a href={route('cancellation')} style={{ color: '#94a3b8', textDecoration: 'none' }}>Cancellation Policy</a>
                         </div>
                     </div>
                 </div>
                 <div style={{ textAlign: 'center', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)', color: '#64748b' }}>
-                    © 2026 SW DigiPro. All rights reserved.
+                    © {new Date().getFullYear()} {import.meta.env.VITE_APP_NAME}. All rights reserved.
                 </div>
             </footer>
         </div>
