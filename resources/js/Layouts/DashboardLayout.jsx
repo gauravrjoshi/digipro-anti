@@ -32,6 +32,7 @@ const DashboardLayout = ({ children }) => {
                     <Link href={route('dashboard.skills')} style={navLinkStyle(route().current('dashboard.skills'))}>Skills</Link>
                     <Link href={route('dashboard.experience')} style={navLinkStyle(route().current('dashboard.experience'))}>Experience</Link>
                     <Link href={route('dashboard.education')} style={navLinkStyle(route().current('dashboard.education'))}>Education</Link>
+                    <Link href={route('dashboard.resume')} style={navLinkStyle(route().current('dashboard.resume'))}>Resume</Link>
                     <Link href={route('dashboard.analytics')} style={navLinkStyle(route().current('dashboard.analytics'))}>Analytics</Link>
                     <Link href={route('dashboard.domains')} style={navLinkStyle(route().current('dashboard.domains'))}>Custom Domains</Link>
                     {user?.is_admin === 1 && (
@@ -92,6 +93,7 @@ const getPageTitle = () => {
         'dashboard.skills': 'Skills Editor',
         'dashboard.experience': 'Experience Editor',
         'dashboard.education': 'Education Editor',
+        'dashboard.resume': 'Resume Manager',
         'dashboard.analytics': 'Analytics',
         'dashboard.domains': 'Domain Settings',
         'dashboard.users': 'User Management',

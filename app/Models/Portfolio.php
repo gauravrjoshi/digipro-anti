@@ -13,7 +13,32 @@ class Portfolio extends Model
 
     protected $casts = [
         'social_links' => 'array',
+        'resume_uploaded_at' => 'datetime',
     ];
+
+    /**
+     * Get the full URL for the resume file
+     */
+    public function getResumeUrlAttribute()
+    {
+        if ($this->resume_type === 'upload' && $this->resume_file_path) {
+            return asset('storage/' . $this->resume_file_path);
+        }
+
+        return $this->attributes['resume_url'] ?? null;
+    }
+
+    /**
+     * Get the resume file name
+     */
+    public function getResumeFileNameAttribute()
+    {
+        if ($this->resume_type === 'upload' && $this->resume_file_path) {
+            return basename($this->resume_file_path);
+        }
+
+        return null;
+    }
 
     public function user()
     {

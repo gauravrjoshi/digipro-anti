@@ -99,6 +99,10 @@ Route::middleware(['auth'])->group(function () {
         return Inertia::render('Dashboard/DomainSettings');
     })->name('dashboard.domains');
 
+    Route::get('/dashboard/resume', function () {
+        return Inertia::render('Dashboard/ResumeManager');
+    })->name('dashboard.resume');
+
     Route::get('/dashboard/users', function () {
         return Inertia::render('Dashboard/SuperAdminUsers');
     })->name('dashboard.users');
@@ -132,6 +136,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/dashboard/api/domains', [\App\Http\Controllers\Api\CustomDomainController::class, 'store'])->name('domains.store');
     Route::post('/dashboard/api/domains/{id}/verify', [\App\Http\Controllers\Api\CustomDomainController::class, 'verify'])->name('domains.verify');
     Route::delete('/dashboard/api/domains/{id}', [\App\Http\Controllers\Api\CustomDomainController::class, 'destroy'])->name('domains.destroy');
+
+    // Resume Management (Pro Feature)
+    Route::post('/api/resume', [\App\Http\Controllers\Api\ResumeController::class, 'store'])->name('api.resume.store');
+    Route::get('/api/resume', [\App\Http\Controllers\Api\ResumeController::class, 'show'])->name('api.resume.show');
+    Route::post('/api/resume/toggle-visibility', [\App\Http\Controllers\Api\ResumeController::class, 'toggleVisibility'])->name('api.resume.toggle-visibility');
+    Route::get('/api/resume/download', [\App\Http\Controllers\Api\ResumeController::class, 'download'])->name('api.resume.download');
+    Route::delete('/api/resume', [\App\Http\Controllers\Api\ResumeController::class, 'destroy'])->name('api.resume.destroy');
 });
 
 
