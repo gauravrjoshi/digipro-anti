@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link, usePage, router } from '@inertiajs/react';
+import { Link, usePage, router, Head } from '@inertiajs/react';
 
 const DashboardLayout = ({ children }) => {
+    const pageTitle = getPageTitle();
     const { auth } = usePage().props;
     const user = auth.user;
 
@@ -10,8 +11,10 @@ const DashboardLayout = ({ children }) => {
         router.post(route('logout'));
     };
 
+
     return (
         <div style={{ display: 'flex', minHeight: '100vh', background: '#0f172a', color: 'white' }}>
+            <Head title={pageTitle} />
             {/* Sidebar */}
             <aside style={{ width: '250px', background: 'rgba(255,255,255,0.02)', borderRight: '1px solid rgba(255,255,255,0.1)', padding: '2rem 1rem' }}>
                 <Link href={route('dashboard')} style={{ textDecoration: 'none' }}>
@@ -24,10 +27,15 @@ const DashboardLayout = ({ children }) => {
                     <Link href={route('dashboard.skills')} style={navLinkStyle(route().current('dashboard.skills'))}>Skills</Link>
                     <Link href={route('dashboard.experience')} style={navLinkStyle(route().current('dashboard.experience'))}>Experience</Link>
                     <Link href={route('dashboard.education')} style={navLinkStyle(route().current('dashboard.education'))}>Education</Link>
-                    <Link href={route('dashboard.analytics')} style={navLinkStyle(route().current('dashboard.analytics'))}>📊 Analytics</Link>
-                    <Link href={route('dashboard.domains')} style={navLinkStyle(route().current('dashboard.domains'))}>🔗 Custom Domains</Link>
-                    {user?.is_admin && (
-                        <Link href={route('dashboard.users')} style={{ ...navLinkStyle(route().current('dashboard.users')), color: '#fca5a5' }}>Manage Users (Admin)</Link>
+                    <Link href={route('dashboard.analytics')} style={navLinkStyle(route().current('dashboard.analytics'))}>Analytics</Link>
+                    <Link href={route('dashboard.domains')} style={navLinkStyle(route().current('dashboard.domains'))}>Custom Domains</Link>
+                    {user?.is_admin === 1 && (
+                        <Link
+                            href={route('dashboard.users')}
+                            style={{ ...navLinkStyle(route().current('dashboard.users')), color: '#fca5a5' }}
+                        >
+                            Manage Users (Admin)
+                        </Link>
                     )}
                     <div style={{ marginTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem' }}>
                         <a href={`/${user?.portfolio?.slug}`} target="_blank" style={{ ...navLinkStyle(false), color: '#4ade80' }}>View Live Site →</a>
@@ -39,15 +47,7 @@ const DashboardLayout = ({ children }) => {
             <main style={{ flex: 1, padding: '2rem' }}>
                 <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
                     <h1 style={{ fontSize: '1.8rem', fontWeight: 'bold' }}>
-                        {route().current('dashboard') ? 'Dashboard' :
-                            route().current('dashboard.profile') ? 'Profile Editor' :
-                                route().current('dashboard.projects') ? 'Projects Editor' :
-                                    route().current('dashboard.skills') ? 'Skills Editor' :
-                                        route().current('dashboard.experience') ? 'Experience Editor' :
-                                            route().current('dashboard.education') ? 'Education Editor' :
-                                                route().current('dashboard.analytics') ? 'Analytics' :
-                                                    route().current('dashboard.domains') ? 'Domain Settings' :
-                                                        route().current('dashboard.users') ? 'User Management' : 'Dashboard'}
+                        {pageTitle}
                     </h1>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
                         <div style={{ textAlign: 'right' }}>
@@ -78,5 +78,29 @@ const navLinkStyle = (isActive) => ({
     fontWeight: isActive ? '600' : '400',
     borderLeft: isActive ? '3px solid #667eea' : '3px solid transparent'
 });
+
+
+const getPageTitle = () => {
+    const titles = {
+        'dashboard.profile': 'Profile Editor',
+        'dashboard.projects': 'Projects Editor',
+        'dashboard.skills': 'Skills Editor',
+        'dashboard.experience': 'Experience Editor',
+        'dashboard.education': 'Education Editor',
+        'dashboard.analytics': 'Analytics',
+        'dashboard.domains': 'Domain Settings',
+        'dashboard.users': 'User Management',
+        'portfolio.show': 'Dashboard',
+    };
+
+    console.log(route().current());
+
+    return Object.entries(titles).find(([routeName]) =>
+        route().current(routeName)
+    )?.[1] ?? 'Dashboard';
+}
+
+
+
 
 export default DashboardLayout;

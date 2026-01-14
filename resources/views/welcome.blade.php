@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SaaS Portfolio</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
     
     <!-- Load Vite from the dev server (localhost:5173) in development -->
     <script type="module">

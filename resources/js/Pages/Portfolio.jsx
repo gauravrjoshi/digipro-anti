@@ -6,6 +6,7 @@ import Skills from '../Components/Skills';
 import Education from '../Components/Education';
 import Contact from '../Components/Contact';
 import axios from 'axios';
+import { Head } from '@inertiajs/react';
 
 const Portfolio = ({ portfolio }) => {
     useEffect(() => {
@@ -23,6 +24,7 @@ const Portfolio = ({ portfolio }) => {
 
     return (
         <div className="portfolio-container" style={{ background: '#0f172a', color: 'white', minHeight: '100vh' }}>
+            <Head title={portfolio.full_name} />
             <Hero data={portfolio} />
             <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
                 <Experience data={portfolio.experiences || []} />
