@@ -1,15 +1,15 @@
 :root {
-  /* Colors */
+  /* Colors - Aligned with SW Logo (Blue & Orange) */
   --bg-color: #0c0c0e;
   --bg-secondary: #141416;
   --text-primary: #ffffff;
   --text-secondary: #94a3b8;
-  --primary-color: #6366f1;
-  /* Indigo */
-  --secondary-color: #ec4899;
-  /* Pink */
-  --accent-color: #8b5cf6;
-  /* Violet */
+  --primary-color: #2196F3;
+  /* Blue from logo */
+  --secondary-color: #FF9800;
+  /* Orange from logo */
+  --accent-color: #1E88E5;
+  /* Darker blue accent */
   --glass-bg: rgba(255, 255, 255, 0.05);
   --glass-border: rgba(255, 255, 255, 0.1);
 
@@ -219,4 +219,79 @@ button {
   color: white;
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+}
+
+/* Responsive Utilities */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 5%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #2196F3 0%, #FF9800 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
+.hero-section {
+  text-align: center;
+  padding: 6rem 5% 4rem;
+  background: radial-gradient(circle at top, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .hero-section {
+    padding: 4rem 1.5rem 2rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem !important;
+    /* Override inline styles if legacy */
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem !important;
+  }
+
+  .hero-buttons a {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+  }
 }

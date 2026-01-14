@@ -17,8 +17,13 @@ const DashboardLayout = ({ children }) => {
             <Head title={pageTitle} />
             {/* Sidebar */}
             <aside style={{ width: '250px', background: 'rgba(255,255,255,0.02)', borderRight: '1px solid rgba(255,255,255,0.1)', padding: '2rem 1rem' }}>
-                <Link href={route('dashboard')} style={{ textDecoration: 'none' }}>
-                    <h2 style={{ fontSize: '1.5rem', marginBottom: '2rem', paddingLeft: '1rem', color: '#667eea', fontWeight: 'bold' }}>DigiPro</h2>
+                <Link href={route('dashboard')} style={{ textDecoration: 'none', display: 'block', marginBottom: '2rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', paddingLeft: '1rem' }}>
+                        <img src="/images/sw-logo.png" alt="SW Logo" style={{ height: '32px', width: 'auto' }} />
+                        <span style={{ fontSize: '1.5rem', fontWeight: 'bold', background: 'linear-gradient(135deg, #2196F3 0%, #FF9800 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                            DigiPro
+                        </span>
+                    </div>
                 </Link>
                 <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     <Link href={route('dashboard')} style={navLinkStyle(route().current('dashboard'))}>Home</Link>
@@ -71,12 +76,12 @@ const navLinkStyle = (isActive) => ({
     display: 'block',
     padding: '0.8rem 1rem',
     color: isActive ? 'white' : '#94a3b8',
-    background: isActive ? 'rgba(102, 126, 234, 0.1)' : 'transparent',
+    background: isActive ? 'rgba(33, 150, 243, 0.1)' : 'transparent',
     textDecoration: 'none',
     borderRadius: '8px',
     transition: 'all 0.2s',
     fontWeight: isActive ? '600' : '400',
-    borderLeft: isActive ? '3px solid #667eea' : '3px solid transparent'
+    borderLeft: isActive ? '3px solid #2196F3' : '3px solid transparent'
 });
 
 

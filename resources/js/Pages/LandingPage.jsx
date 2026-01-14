@@ -6,17 +6,14 @@ const LandingPage = () => {
         <div style={{ minHeight: '100vh', background: '#0f172a', color: 'white' }}>
             <Head title="Welcome to DigiPro" />
             {/* Navigation */}
-            <nav style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                padding: '1.5rem 5%',
-                borderBottom: '1px solid rgba(255,255,255,0.1)'
-            }}>
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                    SW DigiPro
+            <nav className="nav-container">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem', fontWeight: 'bold' }}>
+                    <img src="/images/sw-logo.png" alt="SW Logo" style={{ height: '40px', width: 'auto' }} />
+                    <span style={{ background: 'linear-gradient(135deg, #2196F3 0%, #FF9800 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                        DigiPro
+                    </span>
                 </div>
-                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                <div className="nav-links">
                     <Link href={route('pricing')} style={{ color: '#94a3b8', textDecoration: 'none', padding: '0.5rem 1rem' }}>
                         Pricing
                     </Link>
@@ -26,7 +23,7 @@ const LandingPage = () => {
                     <Link
                         href={route('register')}
                         style={{
-                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                            background: 'linear-gradient(135deg, #2196F3 0%, #FF9800 100%)',
                             color: 'white',
                             padding: '0.75rem 1.5rem',
                             borderRadius: '8px',
@@ -40,20 +37,8 @@ const LandingPage = () => {
             </nav>
 
             {/* Hero Section */}
-            <section style={{
-                textAlign: 'center',
-                padding: '6rem 5% 4rem',
-                background: 'radial-gradient(circle at top, rgba(102, 126, 234, 0.1) 0%, transparent 50%)'
-            }}>
-                <h1 style={{
-                    fontSize: '4rem',
-                    fontWeight: 'bold',
-                    marginBottom: '1.5rem',
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    lineHeight: '1.2'
-                }}>
+            <section className="hero-section">
+                <h1 className="hero-title">
                     Build Your Professional<br />Portfolio in Minutes
                 </h1>
                 <p style={{
@@ -65,11 +50,11 @@ const LandingPage = () => {
                 }}>
                     Create a stunning portfolio website without coding. Showcase your projects, skills, and experience with our powerful SaaS platform.
                 </p>
-                <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+                <div className="hero-buttons" style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
                     <Link
                         href={route('register')}
                         style={{
-                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                            background: 'linear-gradient(135deg, #2196F3 0%, #FF9800 100%)',
                             color: 'white',
                             padding: '1rem 2.5rem',
                             fontSize: '1.125rem',
@@ -78,7 +63,7 @@ const LandingPage = () => {
                             cursor: 'pointer',
                             fontWeight: '600',
                             textDecoration: 'none',
-                            boxShadow: '0 10px 30px rgba(102, 126, 234, 0.3)'
+                            boxShadow: '0 10px 30px rgba(33, 150, 243, 0.3)'
                         }}
                     >
                         Start Building Free →
@@ -200,10 +185,10 @@ const LandingPage = () => {
                         background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                         padding: '2.5rem',
                         borderRadius: '20px',
-                        border: '2px solid #667eea',
+                        border: '2px solid #2196F3',
                         position: 'relative',
                         transform: 'scale(1.05)',
-                        boxShadow: '0 20px 60px rgba(102, 126, 234, 0.3)'
+                        boxShadow: '0 20px 60px rgba(33, 150, 243, 0.3)'
                     }}>
                         <div style={{
                             position: 'absolute',
@@ -240,7 +225,7 @@ const LandingPage = () => {
                                 background: 'white',
                                 border: 'none',
                                 borderRadius: '10px',
-                                color: '#667eea',
+                                color: '#2196F3',
                                 cursor: 'pointer',
                                 fontSize: '1rem',
                                 textDecoration: 'none',
@@ -257,7 +242,7 @@ const LandingPage = () => {
             <section style={{
                 padding: '4rem 5%',
                 textAlign: 'center',
-                background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)'
+                background: 'linear-gradient(135deg, rgba(33, 150, 243, 0.1) 0%, rgba(255, 152, 0, 0.1) 100%)'
             }}>
                 <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>
                     Ready to Build Your Portfolio?
@@ -269,7 +254,7 @@ const LandingPage = () => {
                     href={route('register')}
                     style={{
                         display: 'inline-block',
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        background: 'linear-gradient(135deg, #2196F3 0%, #FF9800 100%)',
                         color: 'white',
                         padding: '1rem 3rem',
                         fontSize: '1.125rem',

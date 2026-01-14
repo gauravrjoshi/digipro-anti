@@ -15,6 +15,14 @@ const Login = () => {
     return (
         <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }}>
             <div className="glass-card" style={{ padding: '2.5rem', width: '100%', maxWidth: '400px', background: 'rgba(255,255,255,0.05)', borderRadius: '16px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem', fontWeight: 'bold' }}>
+                        <img src="/images/sw-logo.png" alt="SW Logo" style={{ height: '40px', width: 'auto' }} />
+                        <span style={{ color: 'white', background: 'linear-gradient(135deg, #2196F3 0%, #FF9800 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                            DigiPro
+                        </span>
+                    </div>
+                </div>
                 <h2 style={{ marginBottom: '0.5rem', textAlign: 'center', color: 'white', fontSize: '1.875rem', fontWeight: 'bold' }}>Login</h2>
                 <p style={{ textAlign: 'center', color: '#94a3b8', marginBottom: '2rem' }}>Welcome back to your portfolio</p>
 
@@ -59,7 +67,7 @@ const Login = () => {
                     </div>
 
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1.25rem' }}>
-                        <Link href={route('password.request')} style={{ color: '#667eea', textDecoration: 'none', fontSize: '0.875rem' }}>
+                        <Link href={route('password.request')} style={{ color: '#2196F3', textDecoration: 'none', fontSize: '0.875rem' }}>
                             Forgot your password?
                         </Link>
                     </div>
@@ -72,11 +80,11 @@ const Login = () => {
                             padding: '0.875rem',
                             borderRadius: '8px',
                             border: 'none',
-                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                            background: 'linear-gradient(135deg, #2196F3 0%, #FF9800 100%)',
                             color: 'white',
                             fontWeight: 'bold',
                             cursor: processing ? 'not-allowed' : 'pointer',
-                            boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)',
+                            boxShadow: '0 4px 12px rgba(33, 150, 243, 0.3)',
                             opacity: processing ? 0.7 : 1
                         }}
                     >
@@ -85,7 +93,7 @@ const Login = () => {
 
                     <div style={{ marginTop: '1.5rem', textAlign: 'center', color: '#94a3b8' }}>
                         Don't have an account? {' '}
-                        <Link href="/register" style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500' }}>
+                        <Link href="/register" style={{ color: '#2196F3', textDecoration: 'none', fontWeight: '500' }}>
                             Sign Up
                         </Link>
                     </div>

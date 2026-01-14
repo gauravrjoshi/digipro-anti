@@ -15,6 +15,14 @@ export default function ForgotPassword({ status }) {
         <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }}>
             <Head title="Forgot Password" />
             <div className="glass-card" style={{ padding: '2.5rem', width: '100%', maxWidth: '400px', background: 'rgba(255,255,255,0.05)', borderRadius: '16px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem', fontWeight: 'bold' }}>
+                        <img src="/images/sw-logo.png" alt="SW Logo" style={{ height: '40px', width: 'auto' }} />
+                        <span style={{ color: 'white', background: 'linear-gradient(135deg, #2196F3 0%, #FF9800 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                            DigiPro
+                        </span>
+                    </div>
+                </div>
                 <h2 style={{ marginBottom: '1.5rem', textAlign: 'center', color: 'white', fontSize: '1.875rem', fontWeight: 'bold' }}>Reset Password</h2>
 
                 <div style={{ marginBottom: '1.5rem', fontSize: '0.875rem', color: '#94a3b8' }}>
@@ -54,7 +62,7 @@ export default function ForgotPassword({ status }) {
                                 padding: '0.875rem',
                                 borderRadius: '8px',
                                 border: 'none',
-                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                background: 'linear-gradient(135deg, #2196F3 0%, #FF9800 100%)',
                                 color: 'white',
                                 fontWeight: 'bold',
                                 cursor: processing ? 'not-allowed' : 'pointer',

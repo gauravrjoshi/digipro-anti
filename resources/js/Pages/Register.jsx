@@ -17,6 +17,14 @@ const Register = () => {
     return (
         <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }}>
             <div style={{ background: 'rgba(255,255,255,0.05)', padding: '2.5rem', borderRadius: '20px', width: '100%', maxWidth: '450px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem', fontWeight: 'bold' }}>
+                        <img src="/images/sw-logo.png" alt="SW Logo" style={{ height: '40px', width: 'auto' }} />
+                        <span style={{ color: 'white', background: 'linear-gradient(135deg, #2196F3 0%, #FF9800 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                            DigiPro
+                        </span>
+                    </div>
+                </div>
                 <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.5rem', color: 'white' }}>Create Account</h2>
                 <p style={{ color: '#94a3b8', marginBottom: '2rem' }}>Start building your portfolio today</p>
 
@@ -80,7 +88,7 @@ const Register = () => {
                         style={{
                             width: '100%',
                             padding: '1rem',
-                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                            background: 'linear-gradient(135deg, #2196F3 0%, #FF9800 100%)',
                             color: 'white',
                             border: 'none',
                             borderRadius: '8px',
@@ -96,7 +104,7 @@ const Register = () => {
 
                 <p style={{ marginTop: '1.5rem', textAlign: 'center', color: '#94a3b8' }}>
                     Already have an account?{' '}
-                    <Link href="/login" style={{ color: '#667eea', fontWeight: '500', textDecoration: 'none' }}>
+                    <Link href="/login" style={{ color: '#2196F3', fontWeight: '500', textDecoration: 'none' }}>
                         Sign in
                     </Link>
                 </p>
