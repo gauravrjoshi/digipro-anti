@@ -13,7 +13,7 @@ const LandingPage = () => {
                 borderBottom: '1px solid rgba(255,255,255,0.1)'
             }}>
                 <div style={{ fontSize: '1.5rem', fontWeight: 'bold', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                    Portfolio SaaS
+                    SW DigiPro
                 </div>
                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     <Link href={route('pricing')} style={{ color: '#94a3b8', textDecoration: 'none', padding: '0.5rem 1rem' }}>
@@ -320,7 +320,7 @@ const LandingPage = () => {
                     </div>
                 </div>
                 <div style={{ textAlign: 'center', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)', color: '#64748b' }}>
-                    © 2026 Portfolio SaaS. All rights reserved.
+                    © 2026 SW DigiPro. All rights reserved.
                 </div>
             </footer>
         </div>

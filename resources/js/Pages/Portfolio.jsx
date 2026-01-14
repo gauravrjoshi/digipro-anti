@@ -36,7 +36,7 @@ const Portfolio = ({ portfolio }) => {
 
             <footer style={{ textAlign: 'center', padding: '4rem 2rem', color: '#64748b', borderTop: '1px solid rgba(255,255,255,0.05)', marginTop: '4rem' }}>
                 <p>© {new Date().getFullYear()} {portfolio.full_name}. All rights reserved.</p>
-                <p style={{ marginTop: '0.5rem', fontSize: '0.875rem' }}>Built with Portfolio SaaS</p>
+                <p style={{ marginTop: '0.5rem', fontSize: '0.875rem' }}>Built with SW DigiPro</p>
             </footer>
         </div>
     );

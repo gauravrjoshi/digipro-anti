@@ -12,12 +12,16 @@ class HandleCustomDomain
     public function handle(Request $request, Closure $next)
     {
         $host = $request->getHost();
-        
+
         \Log::info('HandleCustomDomain: Host detected', ['host' => $host]);
-        
-        // Skip if it's the main domain (digipro.test or localhost)
-        $mainDomains = ['digipro.test', 'localhost', '127.0.0.1'];
-        
+        // Skip if it's the main domain (digipro-anti.test or localhost)
+        $mainDomains = [
+            'digipro-anti.test',
+            'localhost',
+            '127.0.0.1',
+            'digipro-staging.statelyworld.com'
+        ];
+
         if (in_array($host, $mainDomains)) {
             \Log::info('HandleCustomDomain: Main domain, skipping');
             return $next($request);
@@ -54,11 +58,19 @@ class HandleCustomDomain
         }
 
         if ($isRestricted) {
+            $targetUrl = config('app.url') . '/' . $path;
+
             \Log::info('HandleCustomDomain: Restricted path on custom domain, redirecting to main domain', [
                 'path' => $path,
-                'target' => config('app.url') . '/' . $path
+                'target' => $targetUrl,
+                'is_inertia' => $request->inertia()
             ]);
-            return redirect()->to(config('app.url') . '/' . $path);
+
+            if ($request->inertia()) {
+                return \Inertia\Inertia::location($targetUrl);
+            }
+
+            return redirect()->to($targetUrl);
         }
 
         if ($customDomain) {
@@ -66,7 +78,7 @@ class HandleCustomDomain
             $portfolio = $customDomain->portfolio;
             $request->attributes->set('custom_domain_slug', $portfolio->slug);
             $request->attributes->set('is_custom_domain', true);
-            
+
             \Log::info('HandleCustomDomain: Set custom domain attributes', [
                 'slug' => $portfolio->slug
             ]);
