@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link } from '@inertiajs/react';
+import { Link, Head } from '@inertiajs/react';
 
 const LandingPage = () => {
     return (
         <div style={{ minHeight: '100vh', background: '#0f172a', color: 'white' }}>
+            <Head title="Welcome to DigiPro" />
             {/* Navigation */}
             <nav style={{
                 display: 'flex',

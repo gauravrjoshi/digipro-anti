@@ -6,6 +6,8 @@ use Inertia\Inertia;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Api\PortfolioController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Resources\PortfolioResource;
 use App\Models\Portfolio;
 
@@ -132,8 +134,65 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/dashboard/api/domains/{id}', [\App\Http\Controllers\Api\CustomDomainController::class, 'destroy'])->name('domains.destroy');
 });
 
+
+
+// Auth Handlers
+Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Password Reset Routes
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+// Utility
+Route::get('/csrf-token', function () {
+    return response()->json(['token' => csrf_token()]);
+});
+
+// Email Preview Routes (For Testing Only)
+if (app()->environment('local')) {
+    Route::get('/test/email/welcome', function () {
+        $user = \App\Models\User::first() ?? new \App\Models\User([
+            'name' => 'John Doe',
+            'email' => 'john@example.com'
+        ]);
+        return new \App\Mail\WelcomeEmail($user);
+    });
+
+    Route::get('/test/email/subscription', function () {
+        $user = \App\Models\User::first() ?? new \App\Models\User([
+            'name' => 'Jane Smith',
+            'email' => 'jane@example.com'
+        ]);
+        return new \App\Mail\SubscriptionStarted($user);
+    });
+
+    Route::get('/test/email/send', function () {
+        try {
+            $user = \App\Models\User::first();
+            if (!$user) {
+                return 'No user found in database to send email to.';
+            }
+
+            \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\WelcomeEmail($user));
+            return "Email sent to {$user->email}. Check your inbox.";
+        } catch (\Exception $e) {
+            return "Failed to send email: " . $e->getMessage();
+        }
+    });
+}
+
 // Custom Slug Portfolio Routing (for main domain users)
+// improperly placed earlier, moving to end to catch only unhandled requests
 Route::get('/{slug}', function (Request $request, $slug) {
+    // Exclude common paths that might fall through
+    if (in_array($slug, ['login', 'register', 'dashboard', 'api', 'sanctum'])) {
+        abort(404);
+    }
+
     $portfolio = Portfolio::where('slug', $slug)
         ->with(['projects', 'skills', 'experiences', 'education'])
         ->first();
@@ -146,13 +205,3 @@ Route::get('/{slug}', function (Request $request, $slug) {
         'portfolio' => new PortfolioResource($portfolio)
     ]);
 })->name('portfolio.show');
-
-// Auth Handlers
-Route::post('/login', [LoginController::class, 'login'])->name('login.post');
-Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-// Utility
-Route::get('/csrf-token', function () {
-    return response()->json(['token' => csrf_token()]);
-});

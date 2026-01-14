@@ -7,7 +7,10 @@ use App\Models\User;
 use App\Models\Portfolio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WelcomeEmail;
 
 class RegisterController extends Controller
 {
@@ -31,7 +34,7 @@ class RegisterController extends Controller
 
         // Create a portfolio for the new user
         $slug = $this->generateUniqueSlug($validated['name']);
-        
+
         Portfolio::create([
             'user_id' => $user->id,
             'slug' => $slug,
@@ -47,8 +50,15 @@ class RegisterController extends Controller
 
         // Log the user in
         auth()->login($user);
-        
+
         \Log::info('User logged in', ['id' => $user->id]);
+
+        // Send Welcome Email
+        try {
+            Mail::to($user->email)->send(new WelcomeEmail($user));
+        } catch (\Exception $e) {
+            \Log::error('Failed to send welcome email', ['error' => $e->getMessage()]);
+        }
 
         return redirect('/pricing');
     }

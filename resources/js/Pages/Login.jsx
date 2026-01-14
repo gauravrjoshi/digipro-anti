@@ -58,6 +58,12 @@ const Login = () => {
                         {errors.password && <div style={{ color: '#f87171', fontSize: '0.875rem', marginTop: '0.25rem' }}>{errors.password}</div>}
                     </div>
 
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1.25rem' }}>
+                        <Link href={route('password.request')} style={{ color: '#667eea', textDecoration: 'none', fontSize: '0.875rem' }}>
+                            Forgot your password?
+                        </Link>
+                    </div>
+
                     <button
                         type="submit"
                         disabled={processing}
