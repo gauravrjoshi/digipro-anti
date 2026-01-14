@@ -48,7 +48,7 @@ const Pricing = () => {
                     }}>
                         <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Free</h3>
                         <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>
-                            $0<span style={{ fontSize: '1rem', fontWeight: 'normal' }}>/month</span>
+                            ₹0<span style={{ fontSize: '1rem', fontWeight: 'normal' }}>/year</span>
                         </div>
                         <ul style={{ listStyle: 'none', padding: 0, marginBottom: '2rem' }}>
                             <li style={{ padding: '0.5rem 0', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>✓ Basic Portfolio</li>
@@ -95,7 +95,7 @@ const Pricing = () => {
                         </div>
                         <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Pro</h3>
                         <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>
-                            $10<span style={{ fontSize: '1rem', fontWeight: 'normal' }}>/month</span>
+                            ₹999<span style={{ fontSize: '1rem', fontWeight: 'normal' }}>/year</span>
                         </div>
                         <ul style={{ listStyle: 'none', padding: 0, marginBottom: '2rem' }}>
                             <li style={{ padding: '0.5rem 0', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>✓ Custom Domain Support</li>

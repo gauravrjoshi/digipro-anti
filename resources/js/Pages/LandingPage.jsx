@@ -165,7 +165,7 @@ const LandingPage = () => {
                     }}>
                         <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Free</h3>
                         <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>
-                            $0<span style={{ fontSize: '1rem', fontWeight: 'normal', color: '#94a3b8' }}>/month</span>
+                            ₹0<span style={{ fontSize: '1rem', fontWeight: 'normal', color: '#94a3b8' }}>/year</span>
                         </div>
                         <ul style={{ listStyle: 'none', padding: 0, marginBottom: '2rem' }}>
                             {['Basic portfolio', 'Up to 5 projects', 'Standard themes', 'yoursite.com/username'].map((item, i) => (
@@ -221,7 +221,7 @@ const LandingPage = () => {
                         </div>
                         <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Pro</h3>
                         <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>
-                            $10<span style={{ fontSize: '1rem', fontWeight: 'normal', opacity: 0.9 }}>/month</span>
+                            ₹999<span style={{ fontSize: '1rem', fontWeight: 'normal', opacity: 0.9 }}>/year</span>
                         </div>
                         <ul style={{ listStyle: 'none', padding: 0, marginBottom: '2rem' }}>
                             {['Everything in Free', 'Unlimited projects', 'All premium themes', 'Custom subdomain', 'Analytics dashboard', 'Custom domain support', 'Priority support'].map((item, i) => (
