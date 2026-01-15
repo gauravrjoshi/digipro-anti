@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, usePage, router, Head } from '@inertiajs/react';
 
 const DashboardLayout = ({ children }) => {
@@ -6,17 +6,22 @@ const DashboardLayout = ({ children }) => {
     const { auth } = usePage().props;
     const user = auth.user;
 
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
     const handleLogout = (e) => {
         e.preventDefault();
         router.post(route('logout'));
     };
 
+    const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+    const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
 
     return (
         <div style={{ display: 'flex', minHeight: '100vh', background: '#080a11', color: 'white' }}>
             <Head title={pageTitle} />
-            {/* Sidebar */}
-            <aside style={{ width: '250px', background: 'rgba(255,255,255,0.02)', borderRight: '1px solid rgba(255,255,255,0.1)', padding: '2rem 1rem' }}>
+            {/* Sidebar - Desktop */}
+            <aside className="sidebar-desktop" style={{ width: '250px', background: 'rgba(255,255,255,0.02)', borderRight: '1px solid rgba(255,255,255,0.1)', padding: '2rem 1rem' }}>
                 <Link href={route('dashboard')} style={{ textDecoration: 'none', display: 'block', marginBottom: '2.5rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', paddingLeft: '0.75rem' }}>
                         <img src="/images/sw-logo.png" alt="SW Logo" style={{ height: '32px', width: 'auto' }} />
@@ -26,35 +31,43 @@ const DashboardLayout = ({ children }) => {
                     </div>
                 </Link>
                 <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                    <Link href={route('dashboard')} style={navLinkStyle(route().current('dashboard'))}>Home</Link>
-                    <Link href={route('dashboard.profile')} style={navLinkStyle(route().current('dashboard.profile'))}>Profile & Bio</Link>
-                    <Link href={route('dashboard.projects')} style={navLinkStyle(route().current('dashboard.projects'))}>Projects</Link>
-                    <Link href={route('dashboard.skills')} style={navLinkStyle(route().current('dashboard.skills'))}>Skills</Link>
-                    <Link href={route('dashboard.experience')} style={navLinkStyle(route().current('dashboard.experience'))}>Experience</Link>
-                    <Link href={route('dashboard.education')} style={navLinkStyle(route().current('dashboard.education'))}>Education</Link>
-                    <Link href={route('dashboard.resume')} style={navLinkStyle(route().current('dashboard.resume'))}>Resume</Link>
-                    <Link href={route('dashboard.analytics')} style={navLinkStyle(route().current('dashboard.analytics'))}>Analytics</Link>
-                    <Link href={route('dashboard.domains')} style={navLinkStyle(route().current('dashboard.domains'))}>Custom Domains</Link>
-                    {user?.is_admin === 1 && (
-                        <Link
-                            href={route('dashboard.users')}
-                            style={{ ...navLinkStyle(route().current('dashboard.users')), color: '#fca5a5' }}
-                        >
-                            Manage Users (Admin)
-                        </Link>
-                    )}
-                    <div style={{ marginTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem' }}>
-                        <a href={`/${user?.portfolio?.slug}`} target="_blank" style={{ ...navLinkStyle(false), color: '#4ade80' }}>View Live Site →</a>
-                    </div>
+                    <NavLinks />
                 </nav>
             </aside>
 
+            {/* Mobile Menu */}
+            <div className={`drawer-overlay ${isMobileMenuOpen ? 'open' : ''}`} onClick={closeMobileMenu}></div>
+            <div className={`mobile-drawer ${isMobileMenuOpen ? 'open' : ''}`}>
+                <div style={{ padding: '2rem 0' }}>
+                    <Link href={route('dashboard')} onClick={closeMobileMenu} style={{ textDecoration: 'none', display: 'block', marginBottom: '2.5rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', paddingLeft: '0.75rem' }}>
+                            <img src="/images/sw-logo.png" alt="SW Logo" style={{ height: '32px', width: 'auto' }} />
+                            <span className="text-premium" style={{ fontSize: '1.5rem', fontWeight: '800' }}>
+                                DigiPro
+                            </span>
+                        </div>
+                    </Link>
+                    <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                        <NavLinks onClick={closeMobileMenu} />
+                    </nav>
+                </div>
+            </div>
+
             {/* Main Content */}
             <main style={{ flex: 1, padding: '2rem' }}>
-                <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
-                    <h1 className="text-premium" style={{ fontSize: '1.8rem', fontWeight: '800' }}>
-                        {pageTitle}
-                    </h1>
+                <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem', flexWrap: 'wrap', gap: '1rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                        <button
+                            className="mobile-menu-toggle"
+                            onClick={toggleMobileMenu}
+                            style={{ display: 'none', background: 'transparent', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer' }}
+                        >
+                            ☰
+                        </button>
+                        <h1 className="text-premium" style={{ fontSize: '1.8rem', fontWeight: '800' }}>
+                            {pageTitle}
+                        </h1>
+                    </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
                         <div style={{ textAlign: 'right' }}>
                             <div style={{ fontSize: '1rem', fontWeight: '600', color: 'white' }}>{user?.name}</div>
@@ -79,11 +92,42 @@ const DashboardLayout = ({ children }) => {
                         </button>
                     </div>
                 </header>
-                <div style={{ background: 'rgba(255,255,255,0.02)', padding: '2.5rem', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.05)', minHeight: 'calc(100vh - 180px)' }}>
+                <div className="main-content-container" style={{ background: 'rgba(255,255,255,0.02)', padding: '2.5rem', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.05)', minHeight: 'calc(100vh - 180px)' }}>
                     {children}
                 </div>
             </main>
         </div>
+    );
+};
+
+const NavLinks = ({ onClick }) => {
+    const { auth } = usePage().props;
+    const user = auth.user;
+
+    return (
+        <>
+            <Link href={route('dashboard')} onClick={onClick} style={navLinkStyle(route().current('dashboard'))}>Home</Link>
+            <Link href={route('dashboard.profile')} onClick={onClick} style={navLinkStyle(route().current('dashboard.profile'))}>Profile & Bio</Link>
+            <Link href={route('dashboard.projects')} onClick={onClick} style={navLinkStyle(route().current('dashboard.projects'))}>Projects</Link>
+            <Link href={route('dashboard.skills')} onClick={onClick} style={navLinkStyle(route().current('dashboard.skills'))}>Skills</Link>
+            <Link href={route('dashboard.experience')} onClick={onClick} style={navLinkStyle(route().current('dashboard.experience'))}>Experience</Link>
+            <Link href={route('dashboard.education')} onClick={onClick} style={navLinkStyle(route().current('dashboard.education'))}>Education</Link>
+            <Link href={route('dashboard.resume')} onClick={onClick} style={navLinkStyle(route().current('dashboard.resume'))}>Resume</Link>
+            <Link href={route('dashboard.analytics')} onClick={onClick} style={navLinkStyle(route().current('dashboard.analytics'))}>Analytics</Link>
+            <Link href={route('dashboard.domains')} onClick={onClick} style={navLinkStyle(route().current('dashboard.domains'))}>Custom Domains</Link>
+            {user?.is_admin === 1 && (
+                <Link
+                    href={route('dashboard.users')}
+                    onClick={onClick}
+                    style={{ ...navLinkStyle(route().current('dashboard.users')), color: '#fca5a5' }}
+                >
+                    Manage Users (Admin)
+                </Link>
+            )}
+            <div style={{ marginTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem' }}>
+                <a href={`/${user?.portfolio?.slug}`} target="_blank" style={{ ...navLinkStyle(false), color: '#4ade80' }}>View Live Site →</a>
+            </div>
+        </>
     );
 };
 

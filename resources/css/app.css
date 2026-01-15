@@ -360,7 +360,23 @@ button {
   }
 
   .mobile-menu-toggle {
-    display: block;
+    display: block !important;
+  }
+
+  .sidebar-desktop {
+    display: none !important;
+  }
+
+  main {
+    padding: 1.5rem !important;
+  }
+
+  header {
+    margin-bottom: 2rem !important;
+  }
+
+  .main-content-container {
+    padding: 1.5rem !important;
   }
 }
 
