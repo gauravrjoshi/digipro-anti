@@ -115,7 +115,7 @@ const NavLinks = ({ onClick }) => {
             <Link href={route('dashboard.resume')} onClick={onClick} style={navLinkStyle(route().current('dashboard.resume'))}>Resume</Link>
             <Link href={route('dashboard.analytics')} onClick={onClick} style={navLinkStyle(route().current('dashboard.analytics'))}>Analytics</Link>
             <Link href={route('dashboard.domains')} onClick={onClick} style={navLinkStyle(route().current('dashboard.domains'))}>Custom Domains</Link>
-            {user?.is_admin === 1 && (
+            {user?.is_admin == 1 && (
                 <Link
                     href={route('dashboard.users')}
                     onClick={onClick}

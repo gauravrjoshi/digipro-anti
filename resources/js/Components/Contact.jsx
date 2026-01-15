@@ -1,6 +1,15 @@
 import React from 'react';
 
+const socialIcons = {
+    x: '𝕏',
+    github: '🐙',
+    linkedin: '💼',
+    website: '🌐'
+};
+
+
 const Contact = ({ data }) => {
+    console.log(data);
     return (
         <section id="contact" className="container contact-section">
             <h2 className="text-premium" style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '3rem', textAlign: 'center' }}>Get In Touch</h2>
@@ -27,16 +36,25 @@ const Contact = ({ data }) => {
                                 </div>
                             </div>
                         )}
+                        {data.address && data.address.length > 0 && (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                <div style={{ width: '40px', height: '40px', background: 'rgba(245, 158, 11, 0.1)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>🏚️</div>
+                                <div>
+                                    <p style={{ color: '#64748b', fontSize: '0.8rem' }}>Address</p>
+                                    <p style={{ fontWeight: '500' }}>{data.address}</p>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
-                <form style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                {/* <form style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                     <div className="contact-form-row">
                         <input type="text" placeholder="Name" style={{ padding: '0.8rem 1.2rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', color: 'white', outline: 'none' }} />
                         <input type="email" placeholder="Email" style={{ padding: '0.8rem 1.2rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', color: 'white', outline: 'none' }} />
                     </div>
                     <textarea placeholder="Message" rows="5" style={{ padding: '0.8rem 1.2rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', color: 'white', outline: 'none', resize: 'none' }}></textarea>
                     <button type="button" className="btn-premium" style={{ padding: '1rem', marginTop: '1rem' }}>Send Message</button>
-                </form>
+                </form> */}
             </div>
             {data.social_links && data.social_links.length > 0 && (
                 <div style={{ marginTop: '4rem', display: 'flex', justifyContent: 'center', gap: '2rem' }}>

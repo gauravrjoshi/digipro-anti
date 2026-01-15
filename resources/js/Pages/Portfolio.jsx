@@ -51,7 +51,7 @@ const Portfolio = ({ portfolio }) => {
 
             <footer style={{ textAlign: 'center', padding: '4rem 2rem', color: '#64748b', borderTop: '1px solid rgba(255,255,255,0.05)', marginTop: '4rem' }}>
                 <p>© {new Date().getFullYear()} {portfolio.full_name}. All rights reserved.</p>
-                <p style={{ marginTop: '0.5rem', fontSize: '0.875rem' }}>Built with SW DigiPro</p>
+                <p style={{ marginTop: '0.5rem', fontSize: '0.875rem' }}>Built with ❤️ by <a style={{ color: 'var(--primary-color)' }} href={'https://digipro.statelyworld.com/'}>{import.meta.env.VITE_APP_NAME}</a></p>
             </footer>
         </div>
     );

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeEmail;
+use Log;
 
 class RegisterController extends Controller
 {
@@ -22,7 +23,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        \Log::info('Registering user', ['email' => $validated['email']]);
+        Log::channel('slack')->info('Registering user', ['email' => $validated['email']]);
 
         $user = User::create([
             'name' => $validated['name'],
@@ -30,7 +31,7 @@ class RegisterController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        \Log::info('User created', ['id' => $user->id]);
+        Log::channel('slack')->info('User created', ['id' => $user->id]);
 
         // Create a portfolio for the new user
         $slug = $this->generateUniqueSlug($validated['name']);
@@ -46,18 +47,18 @@ class RegisterController extends Controller
             'social_links' => [],
         ]);
 
-        \Log::info('Portfolio created', ['slug' => $slug]);
+        Log::channel('slack')->info('Portfolio created', ['slug' => $slug]);
 
         // Log the user in
         auth()->login($user);
 
-        \Log::info('User logged in', ['id' => $user->id]);
+        Log::channel('slack')->info('User logged in', ['id' => $user->id]);
 
         // Send Welcome Email
         try {
             Mail::to($user->email)->send(new WelcomeEmail($user));
         } catch (\Exception $e) {
-            \Log::error('Failed to send welcome email', ['error' => $e->getMessage()]);
+            Log::channel('slack')->error('Failed to send welcome email', ['error' => $e->getMessage()]);
         }
 
         return redirect('/pricing');
