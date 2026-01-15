@@ -6,9 +6,11 @@ import Skills from '../Components/Skills';
 import Education from '../Components/Education';
 import Contact from '../Components/Contact';
 import axios from 'axios';
-import { Head } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 
 const Portfolio = ({ portfolio }) => {
+    const { auth } = usePage().props;
+
     useEffect(() => {
         // Track view
         if (portfolio?.slug) {
@@ -23,8 +25,21 @@ const Portfolio = ({ portfolio }) => {
     );
 
     return (
-        <div className="portfolio-container" style={{ background: '#080a11', color: 'white', minHeight: '100vh' }}>
+        <div className="portfolio-container" style={{ background: '#080a11', color: 'white', minHeight: '100vh', position: 'relative' }}>
             <Head title={portfolio.full_name} />
+
+            {auth.user && (
+                <div className="dashboard-nav-container">
+                    <Link
+                        href={route('dashboard')}
+                        className="btn-premium dashboard-nav-link"
+                    >
+                        <span>🏠</span>
+                        <span className="btn-text">{auth.user.id === portfolio.user_id ? 'Edit Portfolio' : 'My Dashboard'}</span>
+                    </Link>
+                </div>
+            )}
+
             <Hero data={portfolio} />
             <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
                 <Experience data={portfolio.experiences || []} />

@@ -2,9 +2,9 @@ import React from 'react';
 
 const Contact = ({ data }) => {
     return (
-        <section id="contact" className="container" style={{ padding: '100px 0' }}>
+        <section id="contact" className="container contact-section">
             <h2 className="text-premium" style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '3rem', textAlign: 'center' }}>Get In Touch</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem' }}>
+            <div className="contact-grid">
                 <div>
                     <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Contact Info</h3>
                     <p style={{ color: '#94a3b8', marginBottom: '2rem' }}>Feel free to reach out for collaborations or just a friendly hello!</p>
@@ -30,7 +30,7 @@ const Contact = ({ data }) => {
                     </div>
                 </div>
                 <form style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    <div className="contact-form-row">
                         <input type="text" placeholder="Name" style={{ padding: '0.8rem 1.2rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', color: 'white', outline: 'none' }} />
                         <input type="email" placeholder="Email" style={{ padding: '0.8rem 1.2rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', color: 'white', outline: 'none' }} />
                     </div>

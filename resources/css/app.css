@@ -378,6 +378,69 @@ button {
   .main-content-container {
     padding: 1.5rem !important;
   }
+
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2.5rem !important;
+  }
+
+  .contact-form-row {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .contact-section {
+    padding: 60px 0 !important;
+  }
+
+  .dashboard-nav-container {
+    top: 1rem !important;
+    right: 1rem !important;
+  }
+
+  .dashboard-nav-link {
+    padding: 0.35rem 0.7rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  .dashboard-nav-link .btn-text {
+    display: none;
+  }
+
+  .dashboard-nav-link:hover .btn-text {
+    display: inline;
+    margin-left: 0.5rem;
+  }
+}
+
+.dashboard-nav-container {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
+}
+
+.dashboard-nav-link {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 4rem;
+}
+
+.contact-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
 
 .hero-title {
