@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, Head } from '@inertiajs/react';
+import { PRICING_CONFIG } from '../Config/pricing';
 
 const LandingPage = () => {
+    const [billingCycle, setBillingCycle] = useState('yearly');
+    const { free, pro } = PRICING_CONFIG;
+
+    const currentProPrice = billingCycle === 'yearly' ? pro.yearlyPrice : pro.monthlyPrice;
+    const periodLabel = billingCycle === 'yearly' ? '/ year' : '/ month';
+    const savings = billingCycle === 'yearly' ? (pro.monthlyPrice * 12 - pro.yearlyPrice) : 0;
+
     return (
         <div style={{ minHeight: '100vh', background: '#0f172a', color: 'white' }}>
             <Head title="Welcome to DigiPro" />
@@ -128,34 +136,93 @@ const LandingPage = () => {
 
             {/* Pricing Section */}
             <section style={{ padding: '4rem 5%' }}>
-                <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '1rem' }}>
+                <h2 style={{ fontSize: '3rem', fontWeight: '800', textAlign: 'center', marginBottom: '1.5rem', background: 'linear-gradient(to right, #60a5fa, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                     Simple, Transparent Pricing
                 </h2>
-                <p style={{ textAlign: 'center', color: '#94a3b8', marginBottom: '3rem', fontSize: '1.125rem' }}>
-                    Start free, upgrade when you're ready
+                <p style={{ textAlign: 'center', color: '#94a3b8', marginBottom: '3rem', fontSize: '1.25rem', maxWidth: '600px', margin: '0 auto 3rem' }}>
+                    Choose the plan that's right for you. Start free and upgrade to unlock premium features.
                 </p>
+
+                {/* Billing Toggle */}
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '1rem',
+                    marginBottom: '4rem'
+                }}>
+                    <span style={{ color: billingCycle === 'monthly' ? '#fff' : '#94a3b8', fontWeight: '600' }}>Monthly</span>
+                    <button
+                        onClick={() => setBillingCycle(prev => prev === 'monthly' ? 'yearly' : 'monthly')}
+                        style={{
+                            width: '56px',
+                            height: '28px',
+                            background: '#334155',
+                            borderRadius: '20px',
+                            position: 'relative',
+                            border: 'none',
+                            cursor: 'pointer',
+                            transition: 'background 0.3s'
+                        }}
+                    >
+                        <div style={{
+                            width: '22px',
+                            height: '22px',
+                            background: '#60a5fa',
+                            borderRadius: '50%',
+                            position: 'absolute',
+                            top: '3px',
+                            left: billingCycle === 'monthly' ? '3px' : '31px',
+                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                        }} />
+                    </button>
+                    <span style={{ color: billingCycle === 'yearly' ? '#fff' : '#94a3b8', fontWeight: '600' }}>
+                        Yearly
+                    </span>
+                    {billingCycle === 'yearly' && (
+                        <span style={{
+                            background: 'rgba(34, 197, 94, 0.2)',
+                            color: '#4ade80',
+                            padding: '0.25rem 0.75rem',
+                            borderRadius: '12px',
+                            fontSize: '0.75rem',
+                            fontWeight: 'bold'
+                        }}>
+                            SAVE ₹189
+                        </span>
+                    )}
+                </div>
+
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                    gap: '2rem',
-                    maxWidth: '900px',
-                    margin: '0 auto'
+                    gap: '2.5rem',
+                    maxWidth: '1000px',
+                    margin: '0 auto',
+                    padding: '1rem'
                 }}>
                     {/* Free Plan */}
                     <div style={{
-                        background: 'rgba(255,255,255,0.03)',
+                        background: '#1e293b',
                         padding: '2.5rem',
-                        borderRadius: '20px',
-                        border: '1px solid rgba(255,255,255,0.1)'
+                        borderRadius: '24px',
+                        border: '1px solid #334155',
+                        display: 'flex',
+                        flexDirection: 'column'
                     }}>
-                        <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Free</h3>
-                        <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>
-                            ₹0<span style={{ fontSize: '1rem', fontWeight: 'normal', color: '#94a3b8' }}>/year</span>
+                        <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1rem' }}>{free.name}</h3>
+                        <div style={{ fontSize: '3rem', fontWeight: '800', marginBottom: '0.5rem' }}>
+                            ₹{free.price}
                         </div>
-                        <ul style={{ listStyle: 'none', padding: 0, marginBottom: '2rem' }}>
-                            {['Basic portfolio', 'Up to 5 projects', 'Standard themes', 'yoursite.com/username'].map((item, i) => (
-                                <li key={i} style={{ padding: '0.75rem 0', borderBottom: '1px solid rgba(255,255,255,0.05)', color: '#94a3b8' }}>
-                                    ✓ {item}
+                        <p style={{ color: '#94a3b8', marginBottom: '2rem' }}>Always free to get started</p>
+                        <ul style={{ listStyle: 'none', padding: 0, marginBottom: '2.5rem', flexGrow: 1 }}>
+                            {free.features.map((item, i) => (
+                                <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', color: '#cbd5e1' }}>
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="10" cy="10" r="10" fill="#334155" />
+                                        <path d="M6 10L9 13L14 7" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                    {item}
                                 </li>
                             ))}
                         </ul>
@@ -164,54 +231,68 @@ const LandingPage = () => {
                             style={{
                                 display: 'block',
                                 textAlign: 'center',
-                                width: '100%',
                                 padding: '1rem',
-                                background: 'rgba(255,255,255,0.1)',
-                                border: '1px solid rgba(255,255,255,0.2)',
-                                borderRadius: '10px',
-                                color: 'white',
-                                cursor: 'pointer',
-                                fontSize: '1rem',
+                                background: 'transparent',
+                                border: '2px solid #334155',
+                                borderRadius: '12px',
+                                color: '#f8fafc',
                                 textDecoration: 'none',
-                                fontWeight: '600'
+                                fontWeight: '600',
+                                transition: 'all 0.2s'
                             }}
                         >
-                            Get Started Free
+                            {free.cta}
                         </Link>
                     </div>
 
                     {/* Pro Plan */}
                     <div style={{
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
                         padding: '2.5rem',
-                        borderRadius: '20px',
-                        border: '2px solid #2196F3',
+                        borderRadius: '24px',
+                        border: '2px solid #60a5fa',
                         position: 'relative',
                         transform: 'scale(1.05)',
-                        boxShadow: '0 20px 60px rgba(33, 150, 243, 0.3)'
+                        boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        zIndex: 1
                     }}>
                         <div style={{
                             position: 'absolute',
-                            top: '-12px',
+                            top: '-14px',
                             left: '50%',
                             transform: 'translateX(-50%)',
-                            background: '#fbbf24',
-                            color: '#000',
-                            padding: '0.25rem 1rem',
+                            background: '#60a5fa',
+                            color: '#0f172a',
+                            padding: '0.4rem 1.2rem',
                             borderRadius: '20px',
-                            fontSize: '0.75rem',
-                            fontWeight: 'bold'
+                            fontSize: '0.875rem',
+                            fontWeight: '800',
+                            whiteSpace: 'nowrap'
                         }}>
-                            MOST POPULAR
+                            {billingCycle === 'yearly' ? 'MOST POPULAR' : 'BEST VALUE'}
                         </div>
-                        <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Pro</h3>
-                        <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>
-                            ₹999<span style={{ fontSize: '1rem', fontWeight: 'normal', opacity: 0.9 }}>/year</span>
+                        <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1rem' }}>{pro.name}</h3>
+                        <div style={{ fontSize: '3rem', fontWeight: '800', marginBottom: '0.25rem' }}>
+                            ₹{currentProPrice}<span style={{ fontSize: '1.25rem', fontWeight: '500', color: '#94a3b8' }}>{periodLabel}</span>
                         </div>
-                        <ul style={{ listStyle: 'none', padding: 0, marginBottom: '2rem' }}>
-                            {['Everything in Free', 'Unlimited projects', 'All premium themes', 'Custom subdomain', 'Analytics dashboard', 'Custom domain support', 'Priority support'].map((item, i) => (
-                                <li key={i} style={{ padding: '0.75rem 0', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
-                                    ✓ {item}
+                        {billingCycle === 'yearly' && (
+                            <p style={{ color: '#4ade80', fontSize: '0.94rem', fontWeight: '600', marginBottom: '2rem' }}>
+                                Save ₹{savings} (2 months free)
+                            </p>
+                        )}
+                        {billingCycle === 'monthly' && (
+                            <p style={{ color: '#94a3b8', marginBottom: '2rem' }}>Billed monthly</p>
+                        )}
+                        <ul style={{ listStyle: 'none', padding: 0, marginBottom: '2.5rem', flexGrow: 1 }}>
+                            {pro.features.map((item, i) => (
+                                <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', color: '#f8fafc' }}>
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="10" cy="10" r="10" fill="#60a5fa" />
+                                        <path d="M6 10L9 13L14 7" stroke="#0f172a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                    {item}
                                 </li>
                             ))}
                         </ul>
@@ -220,20 +301,20 @@ const LandingPage = () => {
                             style={{
                                 display: 'block',
                                 textAlign: 'center',
-                                width: '100%',
-                                padding: '1rem',
-                                background: 'white',
-                                border: 'none',
-                                borderRadius: '10px',
-                                color: '#2196F3',
-                                cursor: 'pointer',
-                                fontSize: '1rem',
+                                padding: '1.1rem',
+                                background: '#60a5fa',
+                                borderRadius: '12px',
+                                color: '#0f172a',
                                 textDecoration: 'none',
-                                fontWeight: 'bold'
+                                fontWeight: '800',
+                                transition: 'all 0.2s'
                             }}
                         >
-                            Start Pro Trial
+                            {pro.cta}
                         </Link>
+                        <p style={{ textAlign: 'center', fontSize: '0.8rem', color: '#94a3b8', marginTop: '1rem' }}>
+                            Upgrade Anytime – No Credit Card Required
+                        </p>
                     </div>
                 </div>
             </section>
