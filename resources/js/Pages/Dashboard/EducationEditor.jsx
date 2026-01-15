@@ -30,7 +30,7 @@ const EducationEditor = () => {
 
     return (
         <div>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '2rem' }}>Education & Certification</h2>
+            <h2 className="text-premium" style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '2rem' }}>Education & Certification</h2>
 
             {flash.message && (
                 <div style={{ marginBottom: '1.5rem', padding: '1rem', background: 'rgba(74, 222, 128, 0.1)', color: '#4ade80', borderRadius: '10px', border: '1px solid rgba(74, 222, 128, 0.2)' }}>
@@ -39,17 +39,17 @@ const EducationEditor = () => {
             )}
 
             <div style={{ background: 'rgba(255,255,255,0.03)', padding: '2rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)', marginBottom: '3rem' }}>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Add Education</h3>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '1.5rem', color: 'white' }}>Add Education</h3>
                 <form onSubmit={handleCreate} style={{ display: 'grid', gap: '1.25rem' }}>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                         <div className="form-group">
                             <label style={labelStyle}>Institution</label>
-                            <input value={data.institution} onChange={e => setData('institution', e.target.value)} style={inputStyle} placeholder="University of Technology" required />
+                            <input value={data.institution} onChange={e => setData('institution', e.target.value)} style={inputStyle} placeholder="University of Technology" required className="premium-input-refinement" />
                             {errors.institution && <div style={errorStyle}>{errors.institution}</div>}
                         </div>
                         <div className="form-group">
                             <label style={labelStyle}>Degree / Certificate</label>
-                            <input value={data.degree} onChange={e => setData('degree', e.target.value)} style={inputStyle} placeholder="B.Sc. in Computer Science" required />
+                            <input value={data.degree} onChange={e => setData('degree', e.target.value)} style={inputStyle} placeholder="B.Sc. in Computer Science" required className="premium-input-refinement" />
                             {errors.degree && <div style={errorStyle}>{errors.degree}</div>}
                         </div>
                     </div>
@@ -62,6 +62,7 @@ const EducationEditor = () => {
                                 style={inputStyle}
                                 placeholder="2018"
                                 required
+                                className="premium-input-refinement"
                             />
                             {errors.start_year && <div style={errorStyle}>{errors.start_year}</div>}
                         </div>
@@ -72,6 +73,7 @@ const EducationEditor = () => {
                                 onChange={e => setData('end_year', e.target.value)}
                                 style={inputStyle}
                                 placeholder="2022"
+                                className="premium-input-refinement"
                             />
                             {errors.end_year && <div style={errorStyle}>{errors.end_year}</div>}
                         </div>
@@ -83,11 +85,12 @@ const EducationEditor = () => {
                             onChange={e => setData('description', e.target.value)}
                             style={inputStyle}
                             placeholder="Computer Science"
+                            className="premium-input-refinement"
                         />
                         {errors.description && <div style={errorStyle}>{errors.description}</div>}
                     </div>
-                    <button type="submit" disabled={processing} style={{ padding: '0.8rem 1.5rem', background: '#667eea', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer', justifySelf: 'start' }}>
-                        Add Education
+                    <button type="submit" disabled={processing} className="btn-premium">
+                        {processing ? 'Adding...' : 'Add Education'}
                     </button>
                 </form>
             </div>
@@ -96,11 +99,11 @@ const EducationEditor = () => {
                 {education.map(edu => (
                     <div key={edu.id} style={{ background: 'rgba(255,255,255,0.03)', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
-                            <h4 style={{ margin: 0, fontSize: '1.1rem', fontWeight: '600' }}>{edu.degree}</h4>
+                            <h4 style={{ margin: 0, fontSize: '1.1rem', fontWeight: '600', color: 'white' }}>{edu.degree}</h4>
                             <p style={{ fontSize: '0.9rem', color: '#64748b' }}>{edu.institution} • {edu.start_year} - {edu.end_year || 'Present'}</p>
                             <p style={{ fontSize: '0.85rem', color: '#94a3b8', marginTop: '0.25rem' }}>{edu.description}</p>
                         </div>
-                        <button onClick={() => handleDelete(edu.id)} style={{ padding: '0.5rem 1rem', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>Delete</button>
+                        <button onClick={() => handleDelete(edu.id)} style={{ padding: '0.5rem 1rem', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.2)', borderRadius: '8px', cursor: 'pointer', fontSize: '0.875rem', transition: 'all 0.2s' }} onMouseOver={e => e.target.style.background = 'rgba(239, 68, 68, 0.2)'} onMouseOut={e => e.target.style.background = 'rgba(239, 68, 68, 0.1)'}>Delete</button>
                     </div>
                 ))}
             </div>
@@ -108,8 +111,8 @@ const EducationEditor = () => {
     );
 };
 
-const labelStyle = { display: 'block', marginBottom: '0.5rem', color: '#94a3b8', fontSize: '0.875rem' };
-const inputStyle = { width: '100%', padding: '0.8rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: 'white', outline: 'none' };
+const labelStyle = { display: 'block', marginBottom: '0.5rem', color: '#94a3b8', fontSize: '0.875rem', fontWeight: '500' };
+const inputStyle = { width: '100%', padding: '0.8rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', color: 'white', outline: 'none', transition: 'all 0.2s' };
 
 EducationEditor.layout = page => <DashboardLayout children={page} />;
 

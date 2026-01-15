@@ -39,13 +39,14 @@ const Analytics = () => {
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>Performance Analytics</h2>
+                    <h2 className="text-premium" style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>Performance Analytics</h2>
                     <p style={{ color: '#94a3b8', fontSize: '0.9rem', marginTop: '0.25rem' }}>Track your portfolio engagement and visitor trends</p>
                 </div>
                 <select
                     value={days}
                     onChange={(e) => setDays(Number(e.target.value))}
-                    style={{ padding: '0.6rem 1rem', borderRadius: '8px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', outline: 'none' }}
+                    style={{ padding: '0.6rem 1rem', borderRadius: '10px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', color: 'white', outline: 'none', cursor: 'pointer' }}
+                    className="premium-input-refinement"
                 >
                     <option value={7}>Last 7 days</option>
                     <option value={30}>Last 30 days</option>
@@ -55,15 +56,15 @@ const Analytics = () => {
 
             {/* Stats Cards */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem', marginBottom: '2.5rem' }}>
-                <StatCard title="Total Views" value={overview?.total_views || 0} sub={`${overview?.views_last_30_days || 0} recently`} color="#667eea" />
-                <StatCard title="Unique Visitors" value={overview?.unique_visitors || 0} sub="Distinct audiences" color="#f5576c" />
-                <StatCard title="Total Clicks" value={overview?.total_clicks || 0} sub="Links & Projects" color="#4facfe" />
-                <StatCard title="Engagement Rate" value={`${overview?.total_views > 0 ? ((overview.total_clicks / overview.total_views) * 100).toFixed(1) : 0}%`} sub="Clicks per view" color="#43e97b" />
+                <StatCard title="Total Views" value={overview?.total_views || 0} sub={`${overview?.views_last_30_days || 0} recently`} color="var(--primary-color)" />
+                <StatCard title="Unique Visitors" value={overview?.unique_visitors || 0} sub="Distinct audiences" color="var(--secondary-color)" />
+                <StatCard title="Total Clicks" value={overview?.total_clicks || 0} sub="Links & Projects" color="#8b5cf6" />
+                <StatCard title="Engagement Rate" value={`${overview?.total_views > 0 ? ((overview.total_clicks / overview.total_views) * 100).toFixed(1) : 0}%`} sub="Clicks per view" color="#10b981" />
             </div>
 
             {/* Main Chart */}
             <div style={{ background: 'rgba(255,255,255,0.03)', padding: '2rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)', marginBottom: '2.5rem' }}>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '2rem' }}>Traffic Trends</h3>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '2rem', color: 'white' }}>Traffic Trends</h3>
                 {viewsData.length > 0 ? (
                     <div style={{ display: 'flex', alignItems: 'flex-end', gap: '0.75rem', height: '250px' }}>
                         {viewsData.map((item, index) => {
@@ -75,11 +76,12 @@ const Analytics = () => {
                                         <div
                                             style={{
                                                 width: '100%',
-                                                background: 'linear-gradient(to top, #667eea, #764ba2)',
-                                                borderRadius: '6px 6px 0 0',
+                                                background: 'var(--premium-gradient)',
+                                                borderRadius: '6px 6px 2px 2px',
                                                 height: `${Math.max(height, 5)}%`,
                                                 opacity: item.count > 0 ? 1 : 0.2,
-                                                transition: 'all 0.3s ease'
+                                                transition: 'all 0.3s ease',
+                                                boxShadow: item.count > 0 ? '0 0 15px rgba(14, 165, 233, 0.2)' : 'none'
                                             }}
                                             title={`${item.count} views on ${item.date}`}
                                         />
@@ -99,7 +101,7 @@ const Analytics = () => {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '1.5rem' }}>
                 {/* Top Links */}
                 <div style={{ background: 'rgba(255,255,255,0.03)', padding: '1.5rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Popular Engagements</h3>
+                    <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '1.5rem', color: 'white' }}>Popular Engagements</h3>
                     {clicksData.length > 0 ? (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                             {clicksData.map((click, index) => (
@@ -110,7 +112,7 @@ const Analytics = () => {
                                         </div>
                                         <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>{click.link_type}</div>
                                     </div>
-                                    <div style={{ color: '#667eea', fontWeight: 'bold', fontSize: '1.1rem' }}>{click.count}</div>
+                                    <div style={{ color: 'var(--primary-color)', fontWeight: 'bold', fontSize: '1.1rem' }}>{click.count}</div>
                                 </div>
                             ))}
                         </div>
@@ -121,13 +123,13 @@ const Analytics = () => {
 
                 {/* Referrers */}
                 <div style={{ background: 'rgba(255,255,255,0.03)', padding: '1.5rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Top Referrers</h3>
+                    <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '1.5rem', color: 'white' }}>Top Referrers</h3>
                     {overview?.top_referrers?.length > 0 ? (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                             {overview.top_referrers.map((ref, index) => (
                                 <div key={index} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem', borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
                                     <span style={{ color: '#94a3b8' }}>{ref.referrer || 'Direct'}</span>
-                                    <span style={{ fontWeight: 'bold', color: '#f5576c' }}>{ref.count}</span>
+                                    <span style={{ fontWeight: 'bold', color: 'var(--secondary-color)' }}>{ref.count}</span>
                                 </div>
                             ))}
                         </div>
@@ -141,10 +143,13 @@ const Analytics = () => {
 };
 
 const StatCard = ({ title, value, sub, color }) => (
-    <div style={{ background: 'rgba(255,255,255,0.03)', padding: '1.5rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
-        <p style={{ color: '#94a3b8', fontSize: '0.875rem', marginBottom: '0.5rem' }}>{title}</p>
-        <h3 style={{ fontSize: '2rem', fontWeight: 'bold', color: color }}>{value}</h3>
-        <p style={{ color: '#64748b', fontSize: '0.75rem', marginTop: '0.25rem' }}>{sub}</p>
+    <div style={{ background: 'rgba(255,255,255,0.03)', padding: '1.5rem', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.05)', transition: 'transform 0.3s ease', cursor: 'default' }} onMouseOver={e => e.currentTarget.style.transform = 'translateY(-5px)'} onMouseOut={e => e.currentTarget.style.transform = 'translateY(0)'}>
+        <p style={{ color: '#94a3b8', fontSize: '0.875rem', marginBottom: '0.5rem', fontWeight: '500' }}>{title}</p>
+        <h3 style={{ fontSize: '2.25rem', fontWeight: '800', color: color, letterSpacing: '-0.02em' }}>{value}</h3>
+        <p style={{ color: '#64748b', fontSize: '0.75rem', marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: color }}></span>
+            {sub}
+        </p>
     </div>
 );
 

@@ -160,7 +160,7 @@ const ResumeManager = () => {
 
     return (
         <div>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>Resume Management</h2>
+            <h2 className="text-premium" style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>Resume Management</h2>
             <p style={{ color: '#94a3b8', marginBottom: '2rem', fontSize: '0.9rem' }}>
                 Upload your resume or add a link to make it accessible from your portfolio.
                 {!resumeData?.is_pro && ' (Pro feature)'}
@@ -182,12 +182,15 @@ const ResumeManager = () => {
             {!resumeData?.is_pro && (
                 <div style={{
                     padding: '1.5rem',
-                    background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)',
-                    borderRadius: '12px',
-                    border: '1px solid rgba(102, 126, 234, 0.2)',
-                    marginBottom: '2rem'
+                    background: 'rgba(255, 255, 255, 0.03)',
+                    borderRadius: '16px',
+                    border: '1px solid rgba(255, 255, 255, 0.05)',
+                    marginBottom: '2rem',
+                    position: 'relative',
+                    overflow: 'hidden'
                 }}>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#667eea' }}>
+                    <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'var(--premium-gradient)' }}></div>
+                    <h3 className="text-premium" style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
                         🌟 Upgrade to Pro
                     </h3>
                     <p style={{ color: '#94a3b8', marginBottom: '1rem' }}>
@@ -195,16 +198,8 @@ const ResumeManager = () => {
                     </p>
                     <button
                         onClick={() => router.visit('/pricing')}
-                        style={{
-                            padding: '0.75rem 1.5rem',
-                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                            border: 'none',
-                            borderRadius: '8px',
-                            color: 'white',
-                            fontWeight: 'bold',
-                            cursor: 'pointer',
-                            boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)'
-                        }}
+                        className="btn-premium"
+                        style={{ padding: '0.75rem 2rem' }}
                     >
                         View Pricing
                     </button>
@@ -214,9 +209,9 @@ const ResumeManager = () => {
             {resumeData?.has_resume && (
                 <div style={{
                     padding: '1.5rem',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    borderRadius: '12px',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    background: 'rgba(255, 255, 255, 0.03)',
+                    borderRadius: '16px',
+                    border: '1px solid rgba(255, 255, 255, 0.05)',
                     marginBottom: '2rem'
                 }}>
                     <h3 style={{ fontSize: '1rem', fontWeight: 'bold', marginBottom: '1rem' }}>Current Resume</h3>
@@ -234,7 +229,7 @@ const ResumeManager = () => {
                             )}
                             {resumeData.type === 'url' && (
                                 <p style={{ color: '#94a3b8', fontSize: '0.9rem', marginTop: '0.25rem' }}>
-                                    URL: <a href={resumeData.url} target="_blank" rel="noopener noreferrer" style={{ color: '#667eea', textDecoration: 'underline' }}>
+                                    URL: <a href={resumeData.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-color)', textDecoration: 'none', borderBottom: '1px solid rgba(14, 165, 233, 0.3)' }}>
                                         {resumeData.url}
                                     </a>
                                 </p>
@@ -247,15 +242,18 @@ const ResumeManager = () => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     style={{
-                                        padding: '0.5rem 1rem',
-                                        background: 'rgba(102, 126, 234, 0.2)',
-                                        border: '1px solid rgba(102, 126, 234, 0.3)',
-                                        borderRadius: '8px',
-                                        color: '#667eea',
+                                        padding: '0.5rem 1.25rem',
+                                        background: 'rgba(14, 165, 233, 0.1)',
+                                        border: '1px solid rgba(14, 165, 233, 0.2)',
+                                        borderRadius: '10px',
+                                        color: 'var(--primary-color)',
                                         textDecoration: 'none',
                                         fontSize: '0.9rem',
-                                        fontWeight: '500'
+                                        fontWeight: 'bold',
+                                        transition: 'all 0.2s'
                                     }}
+                                    onMouseOver={e => e.target.style.background = 'rgba(14, 165, 233, 0.15)'}
+                                    onMouseOut={e => e.target.style.background = 'rgba(14, 165, 233, 0.1)'}
                                 >
                                     Download
                                 </a>
@@ -263,15 +261,18 @@ const ResumeManager = () => {
                             <button
                                 onClick={handleDelete}
                                 style={{
-                                    padding: '0.5rem 1rem',
-                                    background: 'rgba(248, 113, 113, 0.2)',
-                                    border: '1px solid rgba(248, 113, 113, 0.3)',
-                                    borderRadius: '8px',
+                                    padding: '0.5rem 1.25rem',
+                                    background: 'rgba(248, 113, 113, 0.08)',
+                                    border: '1px solid rgba(248, 113, 113, 0.15)',
+                                    borderRadius: '10px',
                                     color: '#f87171',
                                     fontSize: '0.9rem',
-                                    fontWeight: '500',
-                                    cursor: 'pointer'
+                                    fontWeight: 'bold',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s'
                                 }}
+                                onMouseOver={e => e.target.style.background = 'rgba(248, 113, 113, 0.15)'}
+                                onMouseOut={e => e.target.style.background = 'rgba(248, 113, 113, 0.08)'}
                             >
                                 Delete
                             </button>
@@ -299,7 +300,7 @@ const ResumeManager = () => {
                                     width: '18px',
                                     height: '18px',
                                     cursor: 'pointer',
-                                    accentColor: '#667eea'
+                                    accentColor: 'var(--primary-color)'
                                 }}
                             />
                             <span style={{ fontSize: '0.9rem' }}>
@@ -326,12 +327,13 @@ const ResumeManager = () => {
                                 style={{
                                     flex: 1,
                                     padding: '0.75rem',
-                                    background: uploadType === 'upload' ? 'rgba(102, 126, 234, 0.2)' : 'rgba(255, 255, 255, 0.05)',
-                                    border: `1px solid ${uploadType === 'upload' ? 'rgba(102, 126, 234, 0.5)' : 'rgba(255, 255, 255, 0.1)'}`,
-                                    borderRadius: '8px',
-                                    color: uploadType === 'upload' ? '#667eea' : '#94a3b8',
-                                    fontWeight: '500',
-                                    cursor: 'pointer'
+                                    background: uploadType === 'upload' ? 'rgba(14, 165, 233, 0.1)' : 'rgba(255, 255, 255, 0.03)',
+                                    border: `1px solid ${uploadType === 'upload' ? 'rgba(14, 165, 233, 0.3)' : 'rgba(255, 255, 255, 0.08)'}`,
+                                    borderRadius: '12px',
+                                    color: uploadType === 'upload' ? 'var(--primary-color)' : '#94a3b8',
+                                    fontWeight: 'bold',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s'
                                 }}
                             >
                                 📄 Upload File
@@ -342,12 +344,13 @@ const ResumeManager = () => {
                                 style={{
                                     flex: 1,
                                     padding: '0.75rem',
-                                    background: uploadType === 'url' ? 'rgba(102, 126, 234, 0.2)' : 'rgba(255, 255, 255, 0.05)',
-                                    border: `1px solid ${uploadType === 'url' ? 'rgba(102, 126, 234, 0.5)' : 'rgba(255, 255, 255, 0.1)'}`,
-                                    borderRadius: '8px',
-                                    color: uploadType === 'url' ? '#667eea' : '#94a3b8',
-                                    fontWeight: '500',
-                                    cursor: 'pointer'
+                                    background: uploadType === 'url' ? 'rgba(14, 165, 233, 0.1)' : 'rgba(255, 255, 255, 0.03)',
+                                    border: `1px solid ${uploadType === 'url' ? 'rgba(14, 165, 233, 0.3)' : 'rgba(255, 255, 255, 0.08)'}`,
+                                    borderRadius: '12px',
+                                    color: uploadType === 'url' ? 'var(--primary-color)' : '#94a3b8',
+                                    fontWeight: 'bold',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s'
                                 }}
                             >
                                 🔗 Add URL
@@ -366,9 +369,9 @@ const ResumeManager = () => {
                                 onDrop={handleDrop}
                                 style={{
                                     padding: '2rem',
-                                    background: isDragging ? 'rgba(102, 126, 234, 0.1)' : 'rgba(255, 255, 255, 0.05)',
-                                    border: `2px dashed ${isDragging ? '#667eea' : 'rgba(255, 255, 255, 0.2)'}`,
-                                    borderRadius: '12px',
+                                    background: isDragging ? 'rgba(14, 165, 233, 0.05)' : 'rgba(255, 255, 255, 0.02)',
+                                    border: `2px dashed ${isDragging ? 'var(--primary-color)' : 'rgba(255, 255, 255, 0.1)'}`,
+                                    borderRadius: '16px',
                                     textAlign: 'center',
                                     cursor: 'pointer',
                                     transition: 'all 0.3s ease'
@@ -411,14 +414,16 @@ const ResumeManager = () => {
                                 value={resumeUrl}
                                 onChange={(e) => setResumeUrl(e.target.value)}
                                 placeholder="https://example.com/my-resume.pdf"
+                                className="premium-input-refinement"
                                 style={{
                                     width: '100%',
                                     padding: '0.8rem',
-                                    background: 'rgba(255, 255, 255, 0.05)',
-                                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                                    borderRadius: '8px',
+                                    background: 'rgba(255, 255, 255, 0.03)',
+                                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                                    borderRadius: '10px',
                                     color: 'white',
-                                    outline: 'none'
+                                    outline: 'none',
+                                    transition: 'all 0.2s'
                                 }}
                             />
                             <p style={{ color: '#94a3b8', fontSize: '0.8rem', marginTop: '0.5rem' }}>
@@ -429,18 +434,9 @@ const ResumeManager = () => {
 
                     <button
                         type="submit"
-                        disabled={uploading || (!resumeData?.is_pro)}
-                        style={{
-                            padding: '1rem 2rem',
-                            background: uploading ? 'rgba(102, 126, 234, 0.5)' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                            border: 'none',
-                            borderRadius: '10px',
-                            color: 'white',
-                            fontWeight: 'bold',
-                            cursor: uploading || (!resumeData?.is_pro) ? 'not-allowed' : 'pointer',
-                            boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)',
-                            opacity: uploading || (!resumeData?.is_pro) ? 0.7 : 1
-                        }}
+                        disabled={uploading}
+                        className="btn-premium"
+                        style={uploading ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
                     >
                         {uploading ? 'Saving...' : (resumeData?.has_resume ? 'Update Resume' : 'Save Resume')}
                     </button>

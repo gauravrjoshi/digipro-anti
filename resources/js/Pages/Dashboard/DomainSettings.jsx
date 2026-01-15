@@ -72,7 +72,7 @@ const DomainSettings = () => {
     return (
         <div>
             <div style={{ marginBottom: '2.5rem' }}>
-                <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>Custom Domains</h2>
+                <h2 className="text-premium" style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>Custom Domains</h2>
                 <p style={{ color: '#94a3b8', fontSize: '0.9rem', marginTop: '0.25rem' }}>Connect your own domain to your portfolio</p>
             </div>
 
@@ -81,14 +81,14 @@ const DomainSettings = () => {
                     <span style={{ fontSize: '1.25rem' }}>⚠️</span>
                     <div>
                         <strong>Pro Feature:</strong> Custom domains are only available on the Pro plan.
-                        <a href="/pricing" style={{ color: '#fbbf24', fontWeight: 'bold', marginLeft: '0.5rem', textDecoration: 'underline' }}>Upgrade now →</a>
+                        <a href="/pricing" style={{ color: '#fbbf24', fontWeight: 'bold', marginLeft: '0.5rem', textDecoration: 'none', borderBottom: '2px solid rgba(251, 191, 36, 0.3)' }}>Upgrade now →</a>
                     </div>
                 </div>
             )}
 
             {/* Add Domain Form */}
             <div style={{ background: 'rgba(255,255,255,0.03)', padding: '2rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)', marginBottom: '3rem' }}>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Add New Domain</h3>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '1.5rem', color: 'white' }}>Add New Domain</h3>
                 <form onSubmit={handleAddDomain} style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                     <div style={{ flex: 1, minWidth: '280px' }}>
                         <input
@@ -99,12 +99,14 @@ const DomainSettings = () => {
                             style={{
                                 width: '100%',
                                 padding: '0.8rem',
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                borderRadius: '8px',
+                                background: 'rgba(255,255,255,0.03)',
+                                border: '1px solid rgba(255,255,255,0.08)',
+                                borderRadius: '10px',
                                 color: 'white',
-                                outline: 'none'
+                                outline: 'none',
+                                transition: 'all 0.2s'
                             }}
+                            className="premium-input-refinement"
                             disabled={!isSubscribed}
                         />
                         {error && <div style={{ color: '#f87171', fontSize: '0.8rem', marginTop: '0.5rem' }}>{error}</div>}
@@ -112,24 +114,25 @@ const DomainSettings = () => {
                     <button
                         type="submit"
                         disabled={!isSubscribed || !newDomain}
-                        style={{
+                        className={isSubscribed ? "btn-premium" : ""}
+                        style={!isSubscribed ? {
                             padding: '0.8rem 2rem',
-                            background: isSubscribed ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'rgba(255,255,255,0.1)',
+                            background: 'rgba(255,255,255,0.1)',
                             color: 'white',
                             border: 'none',
-                            borderRadius: '8px',
-                            cursor: isSubscribed ? 'pointer' : 'not-allowed',
+                            borderRadius: '12px',
+                            cursor: 'not-allowed',
                             fontWeight: 'bold',
-                            opacity: isSubscribed ? 1 : 0.5
-                        }}
+                            opacity: 0.5
+                        } : {}}
                     >
-                        Add Domain
+                        {isSubscribed ? 'Add Domain' : 'Upgrade to Add'}
                     </button>
                 </form>
             </div>
 
             {/* Domains List */}
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Connected Domains</h3>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '1.5rem', color: 'white' }}>Connected Domains</h3>
             {domains.length === 0 ? (
                 <div style={{ textAlign: 'center', padding: '4rem', background: 'rgba(255,255,255,0.02)', borderRadius: '16px' }}>
                     <p style={{ color: '#64748b' }}>No custom domains added yet.</p>
@@ -174,13 +177,17 @@ const DomainSettings = () => {
                                 <div style={{ display: 'flex', gap: '0.75rem' }}>
                                     <button
                                         onClick={() => handleVerify(domain.id)}
-                                        style={{ padding: '0.5rem 1rem', background: '#3b82f6', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: '500' }}
+                                        style={{ padding: '0.6rem 1.25rem', background: 'var(--primary-color)', color: 'white', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.875rem', transition: 'all 0.2s' }}
+                                        onMouseOver={e => e.target.style.filter = 'brightness(1.1)'}
+                                        onMouseOut={e => e.target.style.filter = 'none'}
                                     >
                                         Check Status
                                     </button>
                                     <button
                                         onClick={() => handleDelete(domain.id)}
-                                        style={{ padding: '0.5rem 1rem', background: 'rgba(239, 68, 68, 0.1)', color: '#f87171', border: '1px solid rgba(239, 68, 68, 0.2)', borderRadius: '6px', cursor: 'pointer' }}
+                                        style={{ padding: '0.6rem 1.25rem', background: 'rgba(239, 68, 68, 0.1)', color: '#f87171', border: '1px solid rgba(239, 68, 68, 0.2)', borderRadius: '10px', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 'bold', transition: 'all 0.2s' }}
+                                        onMouseOver={e => e.target.style.background = 'rgba(239, 68, 68, 0.2)'}
+                                        onMouseOut={e => e.target.style.background = 'rgba(239, 68, 68, 0.1)'}
                                     >
                                         Remove
                                     </button>

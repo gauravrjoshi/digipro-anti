@@ -41,7 +41,7 @@ const Pricing = () => {
     return (
         <div style={{
             minHeight: '100vh',
-            background: '#0f172a', // Dark slate background for premium feel
+            background: '#080a11',
             padding: '4rem 1rem',
             fontFamily: "'Inter', sans-serif",
             color: '#f8fafc'
@@ -49,13 +49,10 @@ const Pricing = () => {
             <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
                 {/* Header Section */}
                 <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-                    <h1 style={{
+                    <h1 className="text-premium" style={{
                         fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
                         fontWeight: '800',
-                        marginBottom: '1.5rem',
-                        background: 'linear-gradient(to right, #60a5fa, #a855f7)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent'
+                        marginBottom: '1.5rem'
                     }}>
                         Simple, Transparent Pricing
                     </h1>
@@ -77,10 +74,10 @@ const Pricing = () => {
                             style={{
                                 width: '56px',
                                 height: '28px',
-                                background: '#334155',
+                                background: 'rgba(255,255,255,0.05)',
                                 borderRadius: '20px',
                                 position: 'relative',
-                                border: 'none',
+                                border: '1px solid rgba(255,255,255,0.1)',
                                 cursor: 'pointer',
                                 transition: 'background 0.3s'
                             }}
@@ -88,10 +85,10 @@ const Pricing = () => {
                             <div style={{
                                 width: '22px',
                                 height: '22px',
-                                background: '#60a5fa',
+                                background: '#0ea5e9',
                                 borderRadius: '50%',
                                 position: 'absolute',
-                                top: '3px',
+                                top: '2px',
                                 left: billingCycle === 'monthly' ? '3px' : '31px',
                                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                             }} />
@@ -122,11 +119,8 @@ const Pricing = () => {
                     padding: '1rem'
                 }}>
                     {/* Free Plan */}
-                    <div style={{
-                        background: '#1e293b',
-                        borderRadius: '24px',
+                    <div className="glass-card" style={{
                         padding: '2.5rem',
-                        border: '1px solid #334155',
                         display: 'flex',
                         flexDirection: 'column'
                     }}>
@@ -153,8 +147,8 @@ const Pricing = () => {
                             style={{
                                 width: '100%',
                                 padding: '1rem',
-                                background: 'transparent',
-                                border: '2px solid #334155',
+                                background: 'rgba(255,255,255,0.03)',
+                                border: '1px solid rgba(255,255,255,0.1)',
                                 borderRadius: '12px',
                                 color: '#f8fafc',
                                 cursor: 'pointer',
@@ -162,35 +156,33 @@ const Pricing = () => {
                                 fontWeight: '600',
                                 transition: 'all 0.2s'
                             }}
-                            onMouseOver={(e) => e.target.style.borderColor = '#475569'}
-                            onMouseOut={(e) => e.target.style.borderColor = '#334155'}
+                            onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.05)'}
+                            onMouseOut={(e) => e.target.style.background = 'rgba(255,255,255,0.03)'}
                         >
                             {auth.user && !isSubscribed ? 'Continue with Free' : free.cta}
                         </button>
                     </div>
 
                     {/* Pro Plan */}
-                    <div style={{
-                        background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
-                        borderRadius: '24px',
+                    <div className="glass-card" style={{
                         padding: '2.5rem',
-                        border: '2px solid #60a5fa',
+                        border: '2px solid #0ea5e9',
                         display: 'flex',
                         flexDirection: 'column',
                         position: 'relative',
                         transform: 'scale(1.05)',
-                        boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+                        boxShadow: '0 25px 60px rgba(14, 165, 233, 0.15)',
                         zIndex: 1
                     }}>
                         <div style={{ position: 'absolute', top: '-14px', left: '50%', transform: 'translateX(-50%)' }}>
-                            <span style={{
-                                background: '#60a5fa',
-                                color: '#0f172a',
+                            <span className="bg-premium" style={{
+                                color: 'white',
                                 padding: '0.4rem 1.2rem',
                                 borderRadius: '20px',
                                 fontSize: '0.875rem',
                                 fontWeight: '800',
-                                whiteSpace: 'nowrap'
+                                whiteSpace: 'nowrap',
+                                boxShadow: '0 5px 15px rgba(139, 92, 246, 0.4)'
                             }}>
                                 {billingCycle === 'yearly' ? 'MOST POPULAR' : 'BEST VALUE'}
                             </span>
@@ -213,8 +205,8 @@ const Pricing = () => {
                             {pro.features.map((feature, i) => (
                                 <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', color: '#f8fafc' }}>
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="10" cy="10" r="10" fill="#60a5fa" />
-                                        <path d="M6 10L9 13L14 7" stroke="#0f172a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                        <circle cx="10" cy="10" r="10" fill="rgba(14, 165, 233, 0.2)" />
+                                        <path d="M6 10L9 13L14 7" stroke="#0ea5e9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
                                     {feature}
                                 </li>
@@ -224,21 +216,11 @@ const Pricing = () => {
                         <button
                             onClick={() => handleSubscribe('pro')}
                             disabled={loading || isSubscribed}
+                            className="btn-premium"
                             style={{
                                 width: '100%',
-                                padding: '1.1rem',
-                                background: '#60a5fa',
-                                border: 'none',
-                                borderRadius: '12px',
-                                color: '#0f172a',
-                                cursor: loading || isSubscribed ? 'not-allowed' : 'pointer',
-                                fontSize: '1rem',
-                                fontWeight: '800',
-                                transition: 'transform 0.2s, background 0.2s',
                                 opacity: loading || isSubscribed ? 0.7 : 1
                             }}
-                            onMouseOver={(e) => { if (!loading && !isSubscribed) e.target.style.transform = 'translateY(-2px)'; }}
-                            onMouseOut={(e) => { e.target.style.transform = 'translateY(0)'; }}
                         >
                             {isSubscribed ? 'Active Subscription' : loading ? 'Processing...' : pro.cta}
                         </button>

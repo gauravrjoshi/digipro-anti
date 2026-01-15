@@ -12,11 +12,15 @@ const LandingPage = () => {
 
     const appUrl = import.meta.env.VITE_APP_URL || window.location.origin;
     const siteTitle = "Build Your Professional Portfolio in Minutes";
-    const siteDescription = "Create a stunning portfolio website without coding. Showcase your projects, skills, and experience with our powerful SaaS platform.";
+    const siteDescription = "Create a stunning portfolio website without coding. Showcase your projects, skills, and experience with our powerful SaaS platform designed for professionals.";
     const ogImage = `${appUrl}/images/sw-logo.png`;
 
+    const premiumGradient = 'linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 50%, #f59e0b 100%)';
+
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     return (
-        <div style={{ minHeight: '100vh', background: '#0f172a', color: 'white' }}>
+        <div style={{ minHeight: '100vh', background: '#080a11', color: 'white', overflowX: 'hidden' }}>
             <Head>
                 <title>{siteTitle}</title>
                 <meta name="description" content={siteDescription} />
@@ -36,65 +40,111 @@ const LandingPage = () => {
                 <meta property="twitter:description" content={siteDescription} />
                 <meta property="twitter:image" content={ogImage} />
             </Head>
+
+            {/* Navigation Overlay */}
+            <div
+                className={`drawer-overlay ${isMenuOpen ? 'open' : ''}`}
+                onClick={() => setIsMenuOpen(false)}
+            />
+
+            {/* Mobile Drawer */}
+            <div className={`mobile-drawer ${isMenuOpen ? 'open' : ''}`}>
+                <Link href={route('pricing')} className="nav-link" onClick={() => setIsMenuOpen(false)}>
+                    Pricing
+                </Link>
+                <Link href={route('login')} className="nav-link" onClick={() => setIsMenuOpen(false)}>
+                    Login
+                </Link>
+                <Link
+                    href={route('register')}
+                    className="btn-premium"
+                    style={{
+                        padding: '1rem',
+                        textAlign: 'center'
+                    }}
+                    onClick={() => setIsMenuOpen(false)}
+                >
+                    Get Started Free
+                </Link>
+            </div>
+
             {/* Navigation */}
-            <nav className="nav-container">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem', fontWeight: 'bold' }}>
-                    <img src="/images/sw-logo.png" alt="SW Logo" style={{ height: '40px', width: 'auto' }} />
-                    <span style={{ background: 'linear-gradient(135deg, #2196F3 0%, #FF9800 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            <nav className="nav-container" style={{ backdropFilter: 'blur(10px)', background: 'rgba(8, 10, 17, 0.8)', position: 'fixed', top: 0, width: '100%', zIndex: 100, boxSizing: 'border-box' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '1.5rem', fontWeight: 'bold' }}>
+                    <img src="/images/sw-logo.png" alt="SW Logo" style={{ height: '32px', width: 'auto' }} />
+                    <span style={{ background: premiumGradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                         DigiPro
                     </span>
                 </div>
                 <div className="nav-links">
-                    <Link href={route('pricing')} style={{ color: '#94a3b8', textDecoration: 'none', padding: '0.5rem 1rem' }}>
+                    <Link href={route('pricing')} style={{ color: '#94a3b8', textDecoration: 'none', padding: '0.5rem 1rem', fontWeight: '500' }}>
                         Pricing
                     </Link>
-                    <Link href={route('login')} style={{ color: '#94a3b8', textDecoration: 'none', padding: '0.5rem 1rem' }}>
+                    <Link href={route('login')} style={{ color: '#94a3b8', textDecoration: 'none', padding: '0.5rem 1rem', fontWeight: '500' }}>
                         Login
                     </Link>
                     <Link
                         href={route('register')}
+                        className="btn-premium"
                         style={{
-                            background: 'linear-gradient(135deg, #2196F3 0%, #FF9800 100%)',
-                            color: 'white',
-                            padding: '0.75rem 1.5rem',
-                            borderRadius: '8px',
-                            textDecoration: 'none',
-                            fontWeight: '600'
+                            padding: '0.7rem 1.5rem',
+                            fontSize: '0.95rem'
                         }}
                     >
                         Get Started Free
                     </Link>
                 </div>
+
+                {/* Hamburger Button */}
+                <button
+                    className="mobile-menu-toggle"
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    aria-label="Toggle menu"
+                >
+                    {isMenuOpen ? (
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    ) : (
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    )}
+                </button>
             </nav>
 
+            <div style={{ height: '70px' }} /> {/* Spacer for fixed nav */}
+
             {/* Hero Section */}
-            <section className="hero-section">
-                <h1 className="hero-title">
+            <section className="hero-section" style={{ position: 'relative', overflow: 'hidden' }}>
+                {/* Decorative background blur */}
+                <div style={{ position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)', width: '60%', height: '40%', background: 'radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, transparent 70%)', filter: 'blur(60px)', zIndex: 0 }} />
+
+                <h1 className="hero-title" style={{ background: premiumGradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', position: 'relative', zIndex: 1 }}>
                     Build Your Professional<br />Portfolio in Minutes
                 </h1>
                 <p style={{
-                    fontSize: '1.5rem',
+                    fontSize: '1.25rem',
                     color: '#94a3b8',
                     marginBottom: '3rem',
-                    maxWidth: '700px',
-                    margin: '0 auto 3rem'
+                    maxWidth: '800px',
+                    margin: '0 auto 3rem',
+                    lineHeight: '1.6',
+                    position: 'relative',
+                    zIndex: 1
                 }}>
-                    Create a stunning portfolio website without coding. Showcase your projects, skills, and experience with our powerful SaaS platform.
+                    Create a stunning portfolio website without coding. Showcase your projects, skills, and experience with our powerful SaaS platform designed for professionals.
                 </p>
-                <div className="hero-buttons" style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+                <div className="hero-buttons" style={{ display: 'flex', gap: '1.25rem', justifyContent: 'center', position: 'relative', zIndex: 1 }}>
                     <Link
                         href={route('register')}
+                        className="btn-premium"
                         style={{
-                            background: 'linear-gradient(135deg, #2196F3 0%, #FF9800 100%)',
-                            color: 'white',
-                            padding: '1rem 2.5rem',
-                            fontSize: '1.125rem',
-                            borderRadius: '12px',
-                            border: 'none',
-                            cursor: 'pointer',
-                            fontWeight: '600',
-                            textDecoration: 'none',
-                            boxShadow: '0 10px 30px rgba(33, 150, 243, 0.3)'
+                            padding: '1.1rem 2.8rem',
+                            fontSize: '1.1rem'
                         }}
                     >
                         Start Building Free →
@@ -102,16 +152,19 @@ const LandingPage = () => {
                     <Link
                         href={route('pricing')}
                         style={{
-                            background: 'rgba(255,255,255,0.05)',
+                            background: 'rgba(255,255,255,0.03)',
                             color: 'white',
-                            padding: '1rem 2.5rem',
-                            fontSize: '1.125rem',
+                            padding: '1.1rem 2.8rem',
+                            fontSize: '1.1rem',
                             borderRadius: '12px',
-                            border: '1px solid rgba(255,255,255,0.2)',
+                            border: '1px solid rgba(255,255,255,0.1)',
                             cursor: 'pointer',
                             textDecoration: 'none',
-                            fontWeight: '600'
+                            fontWeight: '600',
+                            transition: 'all 0.3s ease'
                         }}
+                        onMouseOver={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; }}
+                        onMouseOut={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; }}
                     >
                         View Pricing
                     </Link>
@@ -158,8 +211,8 @@ const LandingPage = () => {
             </section>
 
             {/* Pricing Section */}
-            <section style={{ padding: '4rem 5%' }}>
-                <h2 style={{ fontSize: '3rem', fontWeight: '800', textAlign: 'center', marginBottom: '1.5rem', background: 'linear-gradient(to right, #60a5fa, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            <section style={{ padding: '6rem 5%', background: '#080a11', position: 'relative' }}>
+                <h2 style={{ fontSize: '3rem', fontWeight: '800', textAlign: 'center', marginBottom: '1.5rem', background: premiumGradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                     Simple, Transparent Pricing
                 </h2>
                 <p style={{ textAlign: 'center', color: '#94a3b8', marginBottom: '3rem', fontSize: '1.25rem', maxWidth: '600px', margin: '0 auto 3rem' }}>
@@ -180,7 +233,7 @@ const LandingPage = () => {
                         style={{
                             width: '56px',
                             height: '28px',
-                            background: '#334155',
+                            background: '#1e293b',
                             borderRadius: '20px',
                             position: 'relative',
                             border: 'none',
@@ -191,12 +244,13 @@ const LandingPage = () => {
                         <div style={{
                             width: '22px',
                             height: '22px',
-                            background: '#60a5fa',
+                            background: '#0ea5e9',
                             borderRadius: '50%',
                             position: 'absolute',
                             top: '3px',
                             left: billingCycle === 'monthly' ? '3px' : '31px',
-                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                            boxShadow: '0 0 10px rgba(14, 165, 233, 0.5)'
                         }} />
                     </button>
                     <span style={{ color: billingCycle === 'yearly' ? '#fff' : '#94a3b8', fontWeight: '600' }}>
@@ -204,14 +258,15 @@ const LandingPage = () => {
                     </span>
                     {billingCycle === 'yearly' && (
                         <span style={{
-                            background: 'rgba(34, 197, 94, 0.2)',
+                            background: 'rgba(34, 197, 94, 0.15)',
                             color: '#4ade80',
                             padding: '0.25rem 0.75rem',
                             borderRadius: '12px',
                             fontSize: '0.75rem',
-                            fontWeight: 'bold'
+                            fontWeight: 'bold',
+                            border: '1px solid rgba(34, 197, 94, 0.2)'
                         }}>
-                            SAVE ₹189
+                            SAVE 20%
                         </span>
                     )}
                 </div>
@@ -225,11 +280,7 @@ const LandingPage = () => {
                     padding: '1rem'
                 }}>
                     {/* Free Plan */}
-                    <div style={{
-                        background: '#1e293b',
-                        padding: '2.5rem',
-                        borderRadius: '24px',
-                        border: '1px solid #334155',
+                    <div className="glass-card" style={{
                         display: 'flex',
                         flexDirection: 'column'
                     }}>
@@ -242,7 +293,7 @@ const LandingPage = () => {
                             {free.features.map((item, i) => (
                                 <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', color: '#cbd5e1' }}>
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="10" cy="10" r="10" fill="#334155" />
+                                        <circle cx="10" cy="10" r="10" fill="rgba(148, 163, 184, 0.1)" />
                                         <path d="M6 10L9 13L14 7" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
                                     {item}
@@ -256,27 +307,26 @@ const LandingPage = () => {
                                 textAlign: 'center',
                                 padding: '1rem',
                                 background: 'transparent',
-                                border: '2px solid #334155',
+                                border: '2px solid rgba(255,255,255,0.1)',
                                 borderRadius: '12px',
                                 color: '#f8fafc',
                                 textDecoration: 'none',
                                 fontWeight: '600',
                                 transition: 'all 0.2s'
                             }}
+                            onMouseOver={(e) => { e.currentTarget.style.borderColor = '#94a3b8'; }}
+                            onMouseOut={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; }}
                         >
                             {free.cta}
                         </Link>
                     </div>
 
                     {/* Pro Plan */}
-                    <div style={{
-                        background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
-                        padding: '2.5rem',
-                        borderRadius: '24px',
-                        border: '2px solid #60a5fa',
+                    <div className="glass-card" style={{
+                        border: '2px solid #0ea5e9',
                         position: 'relative',
                         transform: 'scale(1.05)',
-                        boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+                        boxShadow: '0 20px 50px rgba(14, 165, 233, 0.15)',
                         display: 'flex',
                         flexDirection: 'column',
                         zIndex: 1
@@ -286,13 +336,14 @@ const LandingPage = () => {
                             top: '-14px',
                             left: '50%',
                             transform: 'translateX(-50%)',
-                            background: '#60a5fa',
-                            color: '#0f172a',
+                            background: premiumGradient,
+                            color: 'white',
                             padding: '0.4rem 1.2rem',
                             borderRadius: '20px',
-                            fontSize: '0.875rem',
+                            fontSize: '0.8125rem',
                             fontWeight: '800',
-                            whiteSpace: 'nowrap'
+                            whiteSpace: 'nowrap',
+                            boxShadow: '0 4px 15px rgba(139, 92, 246, 0.4)'
                         }}>
                             {billingCycle === 'yearly' ? 'MOST POPULAR' : 'BEST VALUE'}
                         </div>
@@ -312,8 +363,8 @@ const LandingPage = () => {
                             {pro.features.map((item, i) => (
                                 <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', color: '#f8fafc' }}>
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="10" cy="10" r="10" fill="#60a5fa" />
-                                        <path d="M6 10L9 13L14 7" stroke="#0f172a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                        <circle cx="10" cy="10" r="10" fill="rgba(14, 165, 233, 0.2)" />
+                                        <path d="M6 10L9 13L14 7" stroke="#0ea5e9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
                                     {item}
                                 </li>
@@ -321,58 +372,45 @@ const LandingPage = () => {
                         </ul>
                         <Link
                             href={route('register')}
+                            className="btn-premium"
                             style={{
                                 display: 'block',
                                 textAlign: 'center',
-                                padding: '1.1rem',
-                                background: '#60a5fa',
-                                borderRadius: '12px',
-                                color: '#0f172a',
-                                textDecoration: 'none',
-                                fontWeight: '800',
-                                transition: 'all 0.2s'
+                                padding: '1.1rem'
                             }}
                         >
                             {pro.cta}
                         </Link>
-                        <p style={{ textAlign: 'center', fontSize: '0.8rem', color: '#94a3b8', marginTop: '1rem' }}>
-                            Upgrade Anytime – No Credit Card Required
-                        </p>
                     </div>
                 </div>
             </section>
 
             {/* CTA Section */}
             <section style={{
-                padding: '4rem 5%',
+                padding: '6rem 5%',
                 textAlign: 'center',
-                background: 'linear-gradient(135deg, rgba(33, 150, 243, 0.1) 0%, rgba(255, 152, 0, 0.1) 100%)'
+                background: 'linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, rgba(245, 158, 11, 0.05) 100%)',
+                borderTop: '1px solid rgba(255,255,255,0.05)'
             }}>
-                <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>
+                <h2 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '1rem' }}>
                     Ready to Build Your Portfolio?
                 </h2>
-                <p style={{ fontSize: '1.25rem', color: '#94a3b8', marginBottom: '2rem' }}>
+                <p style={{ fontSize: '1.25rem', color: '#94a3b8', marginBottom: '2.5rem' }}>
                     Join thousands of professionals showcasing their work
                 </p>
                 <Link
                     href={route('register')}
+                    className="btn-premium"
                     style={{
                         display: 'inline-block',
-                        background: 'linear-gradient(135deg, #2196F3 0%, #FF9800 100%)',
-                        color: 'white',
-                        padding: '1rem 3rem',
-                        fontSize: '1.125rem',
-                        borderRadius: '12px',
-                        border: 'none',
-                        cursor: 'pointer',
-                        fontWeight: '600',
-                        textDecoration: 'none',
-                        boxShadow: '0 10px 30px rgba(102, 126, 234, 0.3)'
+                        padding: '1.1rem 3.5rem',
+                        fontSize: '1.125rem'
                     }}
                 >
                     Get Started Free →
                 </Link>
             </section>
+
 
             {/* Footer */}
             <footer style={{

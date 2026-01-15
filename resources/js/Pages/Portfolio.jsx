@@ -23,7 +23,7 @@ const Portfolio = ({ portfolio }) => {
     );
 
     return (
-        <div className="portfolio-container" style={{ background: '#0f172a', color: 'white', minHeight: '100vh' }}>
+        <div className="portfolio-container" style={{ background: '#080a11', color: 'white', minHeight: '100vh' }}>
             <Head title={portfolio.full_name} />
             <Hero data={portfolio} />
             <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>

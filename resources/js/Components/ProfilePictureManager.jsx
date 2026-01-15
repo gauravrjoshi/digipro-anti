@@ -64,12 +64,13 @@ const ProfilePictureManager = ({ initialData }) => {
 
     return (
         <div style={{
-            padding: '1.5rem',
-            background: 'rgba(255, 255, 255, 0.05)',
-            borderRadius: '12px',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            padding: '2rem',
+            background: 'rgba(255, 255, 255, 0.03)',
+            borderRadius: '24px',
+            border: '1px solid rgba(255, 255, 255, 0.05)',
             marginBottom: '2rem',
-            maxWidth: '700px'
+            maxWidth: '700px',
+            backdropFilter: 'blur(10px)'
         }}>
             <h3 style={{ fontSize: '1rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Profile Picture</h3>
 
@@ -117,15 +118,10 @@ const ProfilePictureManager = ({ initialData }) => {
                     <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
                         <button
                             onClick={() => fileInputRef.current?.click()}
+                            className="btn-premium"
                             style={{
-                                padding: '0.5rem 1rem',
-                                background: 'var(--primary-color)',
-                                border: 'none',
-                                borderRadius: '6px',
-                                color: 'white',
-                                fontSize: '0.85rem',
-                                fontWeight: '600',
-                                cursor: 'pointer'
+                                padding: '0.6rem 1.2rem',
+                                fontSize: '0.85rem'
                             }}
                         >
                             Change Photo
@@ -154,7 +150,7 @@ const ProfilePictureManager = ({ initialData }) => {
                             checked={showOnPortfolio}
                             onChange={handleToggleVisibility}
                             disabled={!profilePic}
-                            style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: '#667eea' }}
+                            style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: 'var(--primary-color)' }}
                         />
                         <span style={{ fontSize: '0.9rem', color: '#94a3b8' }}>Show on my portfolio</span>
                     </label>

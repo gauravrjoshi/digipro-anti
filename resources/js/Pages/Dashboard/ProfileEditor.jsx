@@ -110,15 +110,8 @@ const ProfileEditor = () => {
                     <button
                         type="submit"
                         disabled={processing}
+                        className="btn-premium"
                         style={{
-                            padding: '1rem 2rem',
-                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                            border: 'none',
-                            borderRadius: '10px',
-                            color: 'white',
-                            fontWeight: 'bold',
-                            cursor: processing ? 'not-allowed' : 'pointer',
-                            boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)',
                             opacity: processing ? 0.7 : 1
                         }}
                     >
@@ -130,9 +123,9 @@ const ProfileEditor = () => {
     );
 };
 
-const labelStyle = { display: 'block', marginBottom: '0.5rem', color: '#94a3b8', fontSize: '0.9rem', fontWeight: '500' };
-const inputStyle = { width: '100%', padding: '0.8rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: 'white', outline: 'none' };
-const errorStyle = { color: '#f87171', fontSize: '0.8rem', marginTop: '0.25rem' };
+const labelStyle = { display: 'block', marginBottom: '0.6rem', color: '#94a3b8', fontSize: '0.9rem', fontWeight: '600' };
+const inputStyle = { width: '100%', padding: '0.875rem', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', color: 'white', outline: 'none', transition: 'all 0.3s ease' };
+const errorStyle = { color: '#f87171', fontSize: '0.85rem', marginTop: '0.35rem', fontWeight: '500' };
 
 ProfileEditor.layout = page => <DashboardLayout children={page} />;
 

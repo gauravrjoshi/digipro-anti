@@ -11,37 +11,34 @@ const Home = () => {
         <div>
             {/* Welcome Section */}
             <div style={{
-                background: 'linear-gradient(135deg, rgba(33, 150, 243, 0.1) 0%, rgba(255, 152, 0, 0.1) 100%)',
-                padding: '2rem',
-                borderRadius: '16px',
-                border: '1px solid rgba(33, 150, 243, 0.2)',
-                marginBottom: '2.5rem'
+                background: 'linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(139, 92, 246, 0.05) 50%, rgba(245, 158, 11, 0.1) 100%)',
+                padding: '2.5rem',
+                borderRadius: '24px',
+                border: '1px solid rgba(14, 165, 233, 0.15)',
+                marginBottom: '2.5rem',
+                position: 'relative',
+                overflow: 'hidden'
             }}>
-                <h2 style={{ fontSize: '1.8rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
-                    Welcome back, {user?.name}! 👋
-                </h2>
-                <p style={{ color: '#94a3b8', fontSize: '1rem' }}>
-                    {portfolio ? 'Your portfolio is live and ready to share!' : 'Complete your profile to activate your portfolio.'}
-                </p>
-                {portfolio && (
-                    <Link
-                        href={`/${portfolio.slug}`}
-                        target="_blank"
-                        style={{
-                            display: 'inline-block',
-                            marginTop: '1rem',
-                            padding: '0.75rem 1.5rem',
-                            background: 'linear-gradient(135deg, #2196F3 0%, #FF9800 100%)',
-                            color: 'white',
-                            borderRadius: '8px',
-                            textDecoration: 'none',
-                            fontWeight: '600',
-                            boxShadow: '0 4px 12px rgba(33, 150, 243, 0.3)'
-                        }}
-                    >
-                        View Live Portfolio →
-                    </Link>
-                )}
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                    <h2 style={{ fontSize: '2rem', fontWeight: '800', marginBottom: '0.75rem', color: 'white' }}>
+                        Welcome back, {user?.name}! 👋
+                    </h2>
+                    <p style={{ color: '#94a3b8', fontSize: '1.1rem', fontWeight: '500' }}>
+                        {portfolio ? 'Your portfolio is live and ready to share!' : 'Complete your profile to activate your portfolio.'}
+                    </p>
+                    {portfolio && (
+                        <Link
+                            href={`/${portfolio.slug}`}
+                            target="_blank"
+                            className="btn-premium"
+                            style={{
+                                marginTop: '1.5rem'
+                            }}
+                        >
+                            View Live Portfolio →
+                        </Link>
+                    )}
+                </div>
             </div>
 
             {/* Stats Grid */}
@@ -55,13 +52,13 @@ const Home = () => {
                 <StatCard
                     title="Projects"
                     value={portfolio?.projects?.length || 0}
-                    color="#2196F3"
+                    color="#0ea5e9"
                     icon="📁"
                 />
                 <StatCard
                     title="Skills"
                     value={portfolio?.skills?.length || 0}
-                    color="#FF9800"
+                    color="#f59e0b"
                     icon="⚡"
                 />
                 <StatCard
@@ -131,27 +128,29 @@ const Home = () => {
 
 const StatCard = ({ title, value, color, icon }) => (
     <div style={{
-        background: 'rgba(255,255,255,0.03)',
-        padding: '1.5rem',
-        borderRadius: '12px',
+        background: 'rgba(255,255,255,0.02)',
+        padding: '1.75rem',
+        borderRadius: '20px',
         border: '1px solid rgba(255,255,255,0.05)',
-        transition: 'transform 0.2s, box-shadow 0.2s',
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         cursor: 'default'
     }}
         onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.2)';
+            e.currentTarget.style.transform = 'translateY(-4px)';
+            e.currentTarget.style.boxShadow = '0 15px 30px rgba(0,0,0,0.3)';
+            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
         }}
         onMouseLeave={(e) => {
             e.currentTarget.style.transform = 'translateY(0)';
             e.currentTarget.style.boxShadow = 'none';
+            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)';
         }}
     >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
-            <p style={{ color: '#94a3b8', fontSize: '0.875rem' }}>{title}</p>
-            <span style={{ fontSize: '1.5rem' }}>{icon}</span>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
+            <p style={{ color: '#94a3b8', fontSize: '0.875rem', fontWeight: '600' }}>{title}</p>
+            <span style={{ fontSize: '1.5rem', opacity: 0.8 }}>{icon}</span>
         </div>
-        <h3 style={{ fontSize: '2rem', fontWeight: 'bold', color: color }}>{value}</h3>
+        <h3 style={{ fontSize: '2.25rem', fontWeight: '800', color: color }}>{value}</h3>
     </div>
 );
 
@@ -160,26 +159,28 @@ const QuickActionCard = ({ title, description, href, icon, highlight }) => (
         href={href}
         style={{
             display: 'block',
-            padding: '1.25rem',
-            background: highlight ? 'linear-gradient(135deg, rgba(33, 150, 243, 0.1) 0%, rgba(255, 152, 0, 0.1) 100%)' : 'rgba(255,255,255,0.03)',
-            borderRadius: '12px',
-            border: highlight ? '1px solid rgba(33, 150, 243, 0.3)' : '1px solid rgba(255,255,255,0.05)',
+            padding: '1.5rem',
+            background: highlight ? 'linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%)' : 'rgba(255,255,255,0.02)',
+            borderRadius: '20px',
+            border: highlight ? '1px solid rgba(14, 165, 233, 0.3)' : '1px solid rgba(255,255,255,0.05)',
             textDecoration: 'none',
-            transition: 'all 0.2s',
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
             cursor: 'pointer'
         }}
         onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.borderColor = '#2196F3';
+            e.currentTarget.style.transform = 'translateY(-4px)';
+            e.currentTarget.style.borderColor = highlight ? '#0ea5e9' : 'rgba(255,255,255,0.2)';
+            e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.2)';
         }}
         onMouseLeave={(e) => {
             e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.borderColor = highlight ? 'rgba(33, 150, 243, 0.3)' : 'rgba(255,255,255,0.05)';
+            e.currentTarget.style.borderColor = highlight ? 'rgba(14, 165, 233, 0.3)' : 'rgba(255,255,255,0.05)';
+            e.currentTarget.style.boxShadow = 'none';
         }}
     >
-        <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{icon}</div>
-        <h4 style={{ fontSize: '1rem', fontWeight: '600', color: 'white', marginBottom: '0.25rem' }}>{title}</h4>
-        <p style={{ fontSize: '0.875rem', color: '#94a3b8' }}>{description}</p>
+        <div style={{ fontSize: '1.75rem', marginBottom: '0.75rem' }}>{icon}</div>
+        <h4 style={{ fontSize: '1.125rem', fontWeight: '700', color: 'white', marginBottom: '0.35rem' }}>{title}</h4>
+        <p style={{ fontSize: '0.875rem', color: '#94a3b8', fontWeight: '500', lineHeight: '1.5' }}>{description}</p>
     </Link>
 );
 

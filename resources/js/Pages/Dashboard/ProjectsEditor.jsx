@@ -76,15 +76,10 @@ const ProjectsEditor = () => {
                     <button
                         type="submit"
                         disabled={processing}
+                        className="btn-premium"
                         style={{
-                            padding: '0.8rem 1.5rem',
-                            background: '#667eea',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '8px',
-                            fontWeight: 'bold',
-                            cursor: processing ? 'not-allowed' : 'pointer',
-                            justifySelf: 'start',
+                            padding: '0.75rem 1.5rem',
+                            fontSize: '0.95rem',
                             opacity: processing ? 0.7 : 1
                         }}
                     >
@@ -102,13 +97,15 @@ const ProjectsEditor = () => {
                     projects.map(proj => (
                         <div key={proj.id} style={{ background: 'rgba(255,255,255,0.03)', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <div>
-                                <h4 style={{ margin: 0, fontSize: '1.1rem', fontWeight: '600' }}>{proj.title}</h4>
-                                <p style={{ fontSize: '0.9rem', color: '#94a3b8', marginTop: '0.25rem' }}>{proj.description}</p>
-                                {proj.link && <a href={proj.link} target="_blank" style={{ fontSize: '0.8rem', color: '#667eea', textDecoration: 'none', marginTop: '0.5rem', display: 'block' }}>Visit Project →</a>}
+                                <h4 style={{ margin: 0, fontSize: '1.1rem', fontWeight: '700', color: 'white' }}>{proj.title}</h4>
+                                <p style={{ fontSize: '0.95rem', color: '#94a3b8', marginTop: '0.5rem', lineHeight: '1.5' }}>{proj.description}</p>
+                                {proj.link && <a href={proj.link} target="_blank" style={{ fontSize: '0.875rem', color: 'var(--primary-color)', textDecoration: 'none', marginTop: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.35rem', fontWeight: '600' }}>Visit Project ↗</a>}
                             </div>
                             <button
                                 onClick={() => handleDelete(proj.id)}
-                                style={{ padding: '0.5rem 1rem', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.2)', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.2s' }}
+                                style={{ padding: '0.5rem 1rem', background: 'rgba(239, 68, 68, 0.05)', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.15)', borderRadius: '10px', cursor: 'pointer', transition: 'all 0.2s', fontSize: '0.875rem', fontWeight: '600' }}
+                                onMouseOver={(e) => e.target.style.background = 'rgba(239, 68, 68, 0.1)'}
+                                onMouseOut={(e) => e.target.style.background = 'rgba(239, 68, 68, 0.05)'}
                             >
                                 Delete
                             </button>
@@ -120,9 +117,9 @@ const ProjectsEditor = () => {
     );
 };
 
-const labelStyle = { display: 'block', marginBottom: '0.5rem', color: '#94a3b8', fontSize: '0.9rem' };
-const inputStyle = { width: '100%', padding: '0.8rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: 'white', outline: 'none' };
-const errorStyle = { color: '#f87171', fontSize: '0.8rem', marginTop: '0.25rem' };
+const labelStyle = { display: 'block', marginBottom: '0.6rem', color: '#94a3b8', fontSize: '0.9rem', fontWeight: '600' };
+const inputStyle = { width: '100%', padding: '0.875rem', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', color: 'white', outline: 'none', transition: 'all 0.3s ease' };
+const errorStyle = { color: '#f87171', fontSize: '0.85rem', marginTop: '0.35rem', fontWeight: '500' };
 
 ProjectsEditor.layout = page => <DashboardLayout children={page} />;
 

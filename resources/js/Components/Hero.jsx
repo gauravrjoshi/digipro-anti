@@ -31,8 +31,8 @@ const Hero = ({ data }) => {
           />
         </div>
       )}
-      <h1 style={{ fontSize: '4rem', marginBottom: '1rem' }}>
-        Hi, I'm <span className="text-gradient">{data.full_name}</span>
+      <h1 style={{ fontSize: '4.5rem', fontWeight: 'bold', marginBottom: '1rem', letterSpacing: '-0.02em' }}>
+        Hi, I'm <span className="text-premium">{data.full_name}</span>
       </h1>
       <h2 style={{ fontSize: '2rem', color: 'var(--text-secondary)', marginBottom: '2rem' }}>
         {data.role_title}
@@ -41,7 +41,7 @@ const Hero = ({ data }) => {
         {data.bio}
       </p>
       <div style={{ display: 'flex', gap: '1rem' }}>
-        <a href="#contact" style={{ padding: '0.8rem 2rem', background: 'var(--primary-color)', color: 'white', borderRadius: '50px', fontWeight: '600' }}>
+        <a href="#contact" className="btn-premium" style={{ padding: '0.9rem 2.5rem', textDecoration: 'none' }}>
           Contact Me
         </a>
         {data.resume?.has_resume && data.resume?.show_on_portfolio && (
@@ -50,17 +50,24 @@ const Hero = ({ data }) => {
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              padding: '0.8rem 2rem',
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.1)',
+              padding: '0.9rem 2.5rem',
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.08)',
               color: 'white',
               borderRadius: '50px',
               fontWeight: '600',
               textDecoration: 'none',
-              transition: 'all 0.3s ease'
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
             }}
-            onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
-            onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+            onMouseOver={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
           >
             Download Resume
           </a>

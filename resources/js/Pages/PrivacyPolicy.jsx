@@ -8,13 +8,10 @@ export default function PrivacyPolicy() {
 
             <div style={{ padding: '6rem 5% 4rem' }}>
                 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-                    <h1 style={{
+                    <h1 className="text-premium" style={{
                         fontSize: '3rem',
                         fontWeight: 'bold',
-                        marginBottom: '2rem',
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent'
+                        marginBottom: '2rem'
                     }}>
                         Privacy Policy
                     </h1>
