@@ -12,7 +12,25 @@ const LandingPage = () => {
 
     return (
         <div style={{ minHeight: '100vh', background: '#0f172a', color: 'white' }}>
-            <Head title="Welcome to DigiPro" />
+            <Head>
+                <title>Build Your Professional Portfolio in Minutes</title>
+                <meta name="description" content="Create a stunning portfolio website without coding. Showcase your projects, skills, and experience with our powerful SaaS platform." />
+                <meta name="keywords" content="portfolio builder, professional portfolio, developer portfolio, resume builder, saas" />
+
+                {/* Open Graph / Facebook */}
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content={window.location.href} />
+                <meta property="og:title" content="DigiPro - Build Your Professional Portfolio in Minutes" />
+                <meta property="og:description" content="Create a stunning portfolio website without coding. Showcase your projects, skills, and experience with our powerful SaaS platform." />
+                <meta property="og:image" content="/images/sw-logo.png" />
+
+                {/* Twitter */}
+                <meta property="twitter:card" content="summary_large_image" />
+                <meta property="twitter:url" content={window.location.href} />
+                <meta property="twitter:title" content="DigiPro - Build Your Professional Portfolio in Minutes" />
+                <meta property="twitter:description" content="Create a stunning portfolio website without coding. Showcase your projects, skills, and experience with our powerful SaaS platform." />
+                <meta property="twitter:image" content="/images/sw-logo.png" />
+            </Head>
             {/* Navigation */}
             <nav className="nav-container">
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem', fontWeight: 'bold' }}>
