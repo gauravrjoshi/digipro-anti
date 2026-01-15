@@ -10,26 +10,31 @@ const LandingPage = () => {
     const periodLabel = billingCycle === 'yearly' ? '/ year' : '/ month';
     const savings = billingCycle === 'yearly' ? (pro.monthlyPrice * 12 - pro.yearlyPrice) : 0;
 
+    const appUrl = import.meta.env.VITE_APP_URL || window.location.origin;
+    const siteTitle = "Build Your Professional Portfolio in Minutes";
+    const siteDescription = "Create a stunning portfolio website without coding. Showcase your projects, skills, and experience with our powerful SaaS platform.";
+    const ogImage = `${appUrl}/images/sw-logo.png`;
+
     return (
         <div style={{ minHeight: '100vh', background: '#0f172a', color: 'white' }}>
             <Head>
-                <title>Build Your Professional Portfolio in Minutes</title>
-                <meta name="description" content="Create a stunning portfolio website without coding. Showcase your projects, skills, and experience with our powerful SaaS platform." />
+                <title>{siteTitle}</title>
+                <meta name="description" content={siteDescription} />
                 <meta name="keywords" content="portfolio builder, professional portfolio, developer portfolio, resume builder, saas" />
 
                 {/* Open Graph / Facebook */}
                 <meta property="og:type" content="website" />
-                <meta property="og:url" content={window.location.href} />
-                <meta property="og:title" content="DigiPro - Build Your Professional Portfolio in Minutes" />
-                <meta property="og:description" content="Create a stunning portfolio website without coding. Showcase your projects, skills, and experience with our powerful SaaS platform." />
-                <meta property="og:image" content="/images/sw-logo.png" />
+                <meta property="og:url" content={appUrl} />
+                <meta property="og:title" content={siteTitle} />
+                <meta property="og:description" content={siteDescription} />
+                <meta property="og:image" content={ogImage} />
 
                 {/* Twitter */}
                 <meta property="twitter:card" content="summary_large_image" />
-                <meta property="twitter:url" content={window.location.href} />
-                <meta property="twitter:title" content="DigiPro - Build Your Professional Portfolio in Minutes" />
-                <meta property="twitter:description" content="Create a stunning portfolio website without coding. Showcase your projects, skills, and experience with our powerful SaaS platform." />
-                <meta property="twitter:image" content="/images/sw-logo.png" />
+                <meta property="twitter:url" content={appUrl} />
+                <meta property="twitter:title" content={siteTitle} />
+                <meta property="twitter:description" content={siteDescription} />
+                <meta property="twitter:image" content={ogImage} />
             </Head>
             {/* Navigation */}
             <nav className="nav-container">

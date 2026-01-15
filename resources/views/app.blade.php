@@ -21,6 +21,28 @@
     @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @inertiaHead
+
+    <!-- Primary Meta Tags -->
+    <meta name="description"
+        content="Build Your Professional Portfolio in Minutes. Create a stunning portfolio website without coding. Showcase your projects, skills, and experience with our powerful SaaS platform.">
+    <meta name="keywords"
+        content="portfolio builder, professional portfolio, developer portfolio, resume builder, saas">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:title" content="Build Your Professional Portfolio in Minutes">
+    <meta property="og:description"
+        content="Create a stunning portfolio website without coding. Showcase your projects, skills, and experience with our powerful SaaS platform.">
+    <meta property="og:image" content="{{ url('/images/sw-logo.png') }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url('/') }}">
+    <meta property="twitter:title" content="Build Your Professional Portfolio in Minutes">
+    <meta property="twitter:description"
+        content="Create a stunning portfolio website without coding. Showcase your projects, skills, and experience with our powerful SaaS platform.">
+    <meta property="twitter:image" content="{{ url('/images/sw-logo.png') }}">
 </head>
 
 <body class="font-sans antialiased bg-[#0f172a] text-white">
