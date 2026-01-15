@@ -17,13 +17,16 @@ class RegisterController extends Controller
 {
     public function register(Request $request)
     {
+
+        $message = '';
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        Log::channel('slack')->info('Registering user', ['email' => $validated['email']]);
+        $message = 'Registering user ' . $validated['email'] . "\n";
 
         $user = User::create([
             'name' => $validated['name'],
@@ -31,7 +34,8 @@ class RegisterController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        Log::channel('slack')->info('User created', ['id' => $user->id]);
+        $message .= 'User created ' . $user->id . "\n";
+
 
         // Create a portfolio for the new user
         $slug = $this->generateUniqueSlug($validated['name']);
@@ -47,12 +51,14 @@ class RegisterController extends Controller
             'social_links' => [],
         ]);
 
-        Log::channel('slack')->info('Portfolio created', ['slug' => $slug]);
+        $message .= 'Portfolio created ' . $slug . "\n";
+
 
         // Log the user in
         auth()->login($user);
 
-        Log::channel('slack')->info('User logged in', ['id' => $user->id]);
+        $message .= 'User logged in ' . $user->id . "\n";
+        Log::channel('slack')->info($message);
 
         // Send Welcome Email
         try {
