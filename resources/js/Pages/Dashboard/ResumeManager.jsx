@@ -13,6 +13,7 @@ const ResumeManager = () => {
     const [uploading, setUploading] = useState(false);
     const [message, setMessage] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
+    const [selectedTemplate, setSelectedTemplate] = useState('modern');
 
     useEffect(() => {
         fetchResumeData();
@@ -89,13 +90,16 @@ const ResumeManager = () => {
                     return;
                 }
                 formData.append('resume_file', selectedFile);
-            } else {
+            } else if (uploadType === 'url') {
                 if (!resumeUrl) {
                     setMessage({ type: 'error', text: 'Please enter a resume URL.' });
                     setUploading(false);
                     return;
                 }
                 formData.append('resume_url', resumeUrl);
+            } else {
+                // Generated
+                formData.append('resume_template', selectedTemplate);
             }
 
             const response = await axios.post('/api/resume', formData, {
@@ -206,6 +210,85 @@ const ResumeManager = () => {
                 </div>
             )}
 
+            {resumeData?.is_pro && (
+                <div style={{
+                    padding: '1.5rem',
+                    background: 'rgba(255, 255, 255, 0.03)',
+                    borderRadius: '16px',
+                    border: '1px solid rgba(255, 255, 255, 0.05)',
+                    marginBottom: '2rem'
+                }}>
+                    <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '1rem', color: 'white' }}>
+                        ✨ Generate Resume from Portfolio
+                    </h3>
+                    <p style={{ color: '#94a3b8', marginBottom: '1.5rem', fontSize: '0.9rem' }}>
+                        Automatically generate a professional resume using the data from your portfolio.
+                    </p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
+                        {['modern', 'classic', 'minimal'].map((template) => (
+                            <div
+                                key={template}
+                                onClick={() => setSelectedTemplate(template)}
+                                style={{
+                                    border: selectedTemplate === template ? '2px solid var(--primary-color)' : '1px solid rgba(255, 255, 255, 0.1)',
+                                    borderRadius: '12px',
+                                    padding: '1rem',
+                                    cursor: 'pointer',
+                                    background: selectedTemplate === template ? 'rgba(14, 165, 233, 0.05)' : 'transparent',
+                                    transition: 'all 0.2s'
+                                }}
+                            >
+                                <div style={{
+                                    textTransform: 'capitalize',
+                                    fontWeight: 'bold',
+                                    color: selectedTemplate === template ? 'var(--primary-color)' : 'white',
+                                    marginBottom: '0.5rem'
+                                }}>
+                                    {template}
+                                </div>
+                                <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
+                                    {template === 'modern' && 'Clean & colorful. Best for digital roles.'}
+                                    {template === 'classic' && 'Traditional & formal. Best for corporate.'}
+                                    {template === 'minimal' && 'Simple & elegant. Focus on content.'}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '1rem' }}>
+                        <a
+                            href={`/portfolio/${resumeData?.portfolio_id || auth.user.id}/resume-download?template=${selectedTemplate}&mode=view`}
+                            target="_blank"
+                            className="btn-secondary"
+                            style={{
+                                padding: '0.75rem 1.5rem',
+                                borderRadius: '10px',
+                                background: 'rgba(255, 255, 255, 0.05)',
+                                color: 'white',
+                                textDecoration: 'none',
+                                fontWeight: '500',
+                                border: '1px solid rgba(255, 255, 255, 0.1)'
+                            }}
+                        >
+                            👁️ Preview
+                        </a>
+                        <a
+                            href={`/portfolio/${resumeData?.portfolio_id || auth.user.id}/resume-download?template=${selectedTemplate}&mode=download`}
+                            className="btn-premium"
+                            style={{
+                                padding: '0.75rem 1.5rem',
+                                borderRadius: '10px',
+                                textDecoration: 'none',
+                                display: 'inline-block'
+                            }}
+                        >
+                            ⬇️ Download PDF
+                        </a>
+                    </div>
+                </div>
+            )}
+
             {resumeData?.has_resume && (
                 <div style={{
                     padding: '1.5rem',
@@ -219,7 +302,7 @@ const ResumeManager = () => {
                         <div>
                             <p style={{ color: '#94a3b8', fontSize: '0.9rem' }}>
                                 Type: <span style={{ color: 'white', fontWeight: '500' }}>
-                                    {resumeData.type === 'upload' ? 'File Upload' : 'URL Link'}
+                                    {resumeData.type === 'upload' ? 'File Upload' : (resumeData.type === 'generated' ? 'System Generated' : 'URL Link')}
                                 </span>
                             </p>
                             {resumeData.type === 'upload' && (
@@ -233,6 +316,16 @@ const ResumeManager = () => {
                                         {resumeData.url}
                                     </a>
                                 </p>
+                            )}
+                            {resumeData.type === 'generated' && (
+                                <div style={{ marginTop: '0.25rem' }}>
+                                    <p style={{ color: '#94a3b8', fontSize: '0.9rem' }}>
+                                        Template: <span style={{ color: 'white', fontWeight: '500', textTransform: 'capitalize' }}>{resumeData.template || 'Modern'}</span>
+                                    </p>
+                                    <p style={{ color: '#4ade80', fontSize: '0.8rem', marginTop: '0.25rem' }}>
+                                        ✓ Automatically updates with your portfolio
+                                    </p>
+                                </div>
                             )}
                         </div>
                         <div style={{ display: 'flex', gap: '0.75rem' }}>
@@ -320,7 +413,7 @@ const ResumeManager = () => {
                         <label style={{ display: 'block', marginBottom: '0.75rem', color: '#94a3b8', fontSize: '0.9rem', fontWeight: '500' }}>
                             Choose Upload Method
                         </label>
-                        <div style={{ display: 'flex', gap: '1rem' }}>
+                        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                             <button
                                 type="button"
                                 onClick={() => setUploadType('upload')}
@@ -333,7 +426,8 @@ const ResumeManager = () => {
                                     color: uploadType === 'upload' ? 'var(--primary-color)' : '#94a3b8',
                                     fontWeight: 'bold',
                                     cursor: 'pointer',
-                                    transition: 'all 0.2s'
+                                    transition: 'all 0.2s',
+                                    minWidth: '140px'
                                 }}
                             >
                                 📄 Upload File
@@ -350,10 +444,29 @@ const ResumeManager = () => {
                                     color: uploadType === 'url' ? 'var(--primary-color)' : '#94a3b8',
                                     fontWeight: 'bold',
                                     cursor: 'pointer',
-                                    transition: 'all 0.2s'
+                                    transition: 'all 0.2s',
+                                    minWidth: '140px'
                                 }}
                             >
                                 🔗 Add URL
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setUploadType('generated')}
+                                style={{
+                                    flex: 1,
+                                    padding: '0.75rem',
+                                    background: uploadType === 'generated' ? 'rgba(14, 165, 233, 0.1)' : 'rgba(255, 255, 255, 0.03)',
+                                    border: `1px solid ${uploadType === 'generated' ? 'rgba(14, 165, 233, 0.3)' : 'rgba(255, 255, 255, 0.08)'}`,
+                                    borderRadius: '12px',
+                                    color: uploadType === 'generated' ? 'var(--primary-color)' : '#94a3b8',
+                                    fontWeight: 'bold',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s',
+                                    minWidth: '140px'
+                                }}
+                            >
+                                ✨ System Generated
                             </button>
                         </div>
                     </div>
@@ -404,7 +517,7 @@ const ResumeManager = () => {
                                 )}
                             </div>
                         </div>
-                    ) : (
+                    ) : uploadType === 'url' ? (
                         <div style={{ marginBottom: '1.5rem' }}>
                             <label style={{ display: 'block', marginBottom: '0.75rem', color: '#94a3b8', fontSize: '0.9rem', fontWeight: '500' }}>
                                 Resume URL
@@ -430,6 +543,48 @@ const ResumeManager = () => {
                                 Enter a link to your resume hosted on Google Drive, Dropbox, or any other service.
                             </p>
                         </div>
+                    ) : (
+                        <div style={{ marginBottom: '1.5rem' }}>
+                            <label style={{ display: 'block', marginBottom: '0.75rem', color: '#94a3b8', fontSize: '0.9rem', fontWeight: '500' }}>
+                                Select Template
+                            </label>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+                                {['modern', 'classic', 'minimal'].map((template) => (
+                                    <div
+                                        key={template}
+                                        onClick={() => setSelectedTemplate(template)}
+                                        style={{
+                                            border: selectedTemplate === template ? '2px solid var(--primary-color)' : '1px solid rgba(255, 255, 255, 0.1)',
+                                            borderRadius: '12px',
+                                            padding: '1rem',
+                                            cursor: 'pointer',
+                                            background: selectedTemplate === template ? 'rgba(14, 165, 233, 0.05)' : 'transparent',
+                                            transition: 'all 0.2s'
+                                        }}
+                                    >
+                                        <div style={{
+                                            textTransform: 'capitalize',
+                                            fontWeight: 'bold',
+                                            color: selectedTemplate === template ? 'var(--primary-color)' : 'white',
+                                            marginBottom: '0.5rem'
+                                        }}>
+                                            {template}
+                                        </div>
+                                        <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
+                                            {template === 'modern' && 'Clean & colorful. Best for digital roles.'}
+                                            {template === 'classic' && 'Traditional & formal. Best for corporate.'}
+                                            {template === 'minimal' && 'Simple & elegant. Focus on content.'}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div style={{ padding: '1rem', background: 'rgba(14, 165, 233, 0.05)', borderRadius: '8px', border: '1px solid rgba(14, 165, 233, 0.1)' }}>
+                                <p style={{ fontSize: '0.9rem', color: 'var(--primary-color)' }}>
+                                    💡 This will automatically generate a PDF resume from your portfolio data whenever visitors click "Download Resume" on your public site.
+                                </p>
+                            </div>
+                        </div>
                     )}
 
                     <button
@@ -438,7 +593,7 @@ const ResumeManager = () => {
                         className="btn-premium"
                         style={uploading ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
                     >
-                        {uploading ? 'Saving...' : (resumeData?.has_resume ? 'Update Resume' : 'Save Resume')}
+                        {uploading ? 'Saving...' : 'Save Preference'}
                     </button>
                 </form>
             )}

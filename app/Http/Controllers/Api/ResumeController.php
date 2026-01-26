@@ -33,9 +33,10 @@ class ResumeController extends Controller
 
         // Validate request
         $validator = Validator::make($request->all(), [
-            'type' => 'required|in:upload,url',
+            'type' => 'required|in:upload,url,generated',
             'resume_file' => 'required_if:type,upload|file|mimes:pdf,doc,docx|max:5120', // 5MB max
             'resume_url' => 'required_if:type,url|url|max:500',
+            'resume_template' => 'nullable|string|in:modern,classic,minimal',
         ]);
 
         if ($validator->fails()) {
@@ -57,6 +58,7 @@ class ResumeController extends Controller
                 'resume_type' => 'upload',
                 'resume_file_path' => $filePath,
                 'resume_url' => null,
+                'resume_template' => null,
                 'resume_uploaded_at' => now(),
             ]);
 
@@ -69,12 +71,13 @@ class ResumeController extends Controller
                     'uploaded_at' => $portfolio->resume_uploaded_at,
                 ]
             ]);
-        } else {
+        } elseif ($request->type === 'url') {
             // Handle URL
             $portfolio->update([
                 'resume_type' => 'url',
                 'resume_file_path' => null,
                 'resume_url' => $request->resume_url,
+                'resume_template' => null,
                 'resume_uploaded_at' => now(),
             ]);
 
@@ -83,6 +86,24 @@ class ResumeController extends Controller
                 'resume' => [
                     'type' => 'url',
                     'url' => $portfolio->resume_url,
+                    'uploaded_at' => $portfolio->resume_uploaded_at,
+                ]
+            ]);
+        } else {
+            // Handle Generated
+            $portfolio->update([
+                'resume_type' => 'generated',
+                'resume_file_path' => null,
+                'resume_url' => null,
+                'resume_template' => $request->resume_template ?? 'modern',
+                'resume_uploaded_at' => now(),
+            ]);
+
+            return response()->json([
+                'message' => 'System generated resume selected successfully',
+                'resume' => [
+                    'type' => 'generated',
+                    'template' => $portfolio->resume_template,
                     'uploaded_at' => $portfolio->resume_uploaded_at,
                 ]
             ]);
@@ -99,12 +120,14 @@ class ResumeController extends Controller
 
         if (!$portfolio || !$portfolio->resume_type) {
             return response()->json([
+                'portfolio_id' => $portfolio?->id,
                 'has_resume' => false,
                 'is_pro' => $user->subscribed('default')
             ]);
         }
 
         $resumeData = [
+            'portfolio_id' => $portfolio->id,
             'has_resume' => true,
             'is_pro' => $user->subscribed('default'),
             'type' => $portfolio->resume_type,
@@ -115,8 +138,16 @@ class ResumeController extends Controller
         if ($portfolio->resume_type === 'upload') {
             $resumeData['file_name'] = basename($portfolio->resume_file_path);
             $resumeData['download_url'] = asset('storage/' . $portfolio->resume_file_path);
-        } else {
+        } elseif ($portfolio->resume_type === 'url') {
             $resumeData['url'] = $portfolio->resume_url;
+        } else {
+            // Generated
+            $resumeData['template'] = $portfolio->resume_template;
+            // URL to download the generated resume
+            $resumeData['download_url'] = route('resume.generate', [
+                'portfolio' => $portfolio->id,
+                'template' => $portfolio->resume_template
+            ]);
         }
 
         return response()->json($resumeData);

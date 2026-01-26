@@ -201,6 +201,9 @@ if (app()->environment('local')) {
     });
 }
 
+// Resume Generation Route
+Route::get('/portfolio/{portfolio}/resume-download', [\App\Http\Controllers\ResumeController::class, 'download'])->name('resume.generate');
+
 // Custom Slug Portfolio Routing (for main domain users)
 // improperly placed earlier, moving to end to catch only unhandled requests
 Route::get('/{slug}', function (Request $request, $slug) {

@@ -46,7 +46,11 @@ class PortfolioResource extends JsonResource
             'resume' => [
                 'has_resume' => (bool) $this->resume_type,
                 'show_on_portfolio' => (bool) $this->show_resume_on_portfolio,
-                'url' => (bool) $this->show_resume_on_portfolio ? $this->resume_url : null,
+                'url' => $this->show_resume_on_portfolio
+                    ? ($this->resume_type === 'generated'
+                        ? route('resume.generate', ['portfolio' => $this->id])
+                        : $this->resume_url)
+                    : null,
                 'file_name' => (bool) $this->show_resume_on_portfolio ? $this->resume_file_name : null,
             ],
         ];
